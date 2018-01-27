@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Castepinyes</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="email">Castepinyes@gmail.com</string>
+    <string name="Colla">Colla</string>
+    <string name="Pinyes">Pinyes</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mostrar_a_toda_la_gente_de_la_colla">Mostrar a toda la gente de la colla</string>
+    <string name="guardar">Guardar</string>
+    <string name="telefono">telefono</string>
+    <string name="_2nd_apellido">2nd Apellido</string>
+    <string name="_1er_apellido">1er Apellido</string>
+    <string name="colla">Colla</string>
+    <string name="nombre">Nombre</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="entrar">Entrar</string>
+    <string name="diagonal">Diagonal</string>
+    <string name="baix">Baix</string>
+    <string name="Sing_Button_ressetpassword">RessetPassword</string>
+    <string name="Lateral">Lateral</string>
+    <string name="button_eliminar">Eliminar</string>
+    <string name="boton_editar">Editar</string>
+    <string name="crossa">Crossa</string>
+    <string name="agulla">Agulla</string>
+
+
+</resources>

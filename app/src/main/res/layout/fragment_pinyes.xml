@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentPinyes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blanc"
+    android:orientation="vertical"
+    android:screenOrientation="portrait"
+    tools:context="com.ruben.castepinyes.FragmentPinya">
+
+
+
+        <Button
+            android:id="@+id/dosdecinc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pinya de 2"
+            android:background="@drawable/boton_redondo"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"/>
+
+        <Button
+            android:id="@+id/pinyaTres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pinya de 3"
+            android:background="@drawable/boton_redondo"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/fab_margin"/>
+
+        <Button
+            android:id="@+id/pinyaQuatre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pinyes de 4"
+            android:background="@drawable/boton_redondo"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/fab_margin"/>
+        <Button
+            android:id="@+id/pinyaCinc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pinya de 5"
+            android:background="@drawable/boton_redondo"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/fab_margin"/>
+
+        <Button
+            android:id="@+id/pinyadesis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pinya de 6"
+            android:background="@drawable/boton_redondo"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/fab_margin"/>
+
+
+
+</LinearLayout>

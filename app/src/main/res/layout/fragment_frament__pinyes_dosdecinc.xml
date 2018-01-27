@@ -1,0 +1,174 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_fragment_dosdecinc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blanc"
+    android:orientation="vertical"
+    android:screenOrientation="landscape"
+    tools:context="layout.frament_fragment_pinyes">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="340dp">
+
+            <TextView
+                android:id="@+id/hola"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="hola" />
+
+            <TextView
+                android:id="@+id/Diagonal_Esquerra_dalt"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="29dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="100dp"
+                android:background="#808080"
+                android:hint="@string/Lateral"
+                android:padding="10dp"
+                android:textAlignment="center" />
+
+
+            <TextView
+                android:id="@+id/Baix_esquerra"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="155dp"
+                android:background="@color/grey"
+                android:hint="@string/baix"
+                android:padding="10dp"
+                android:rotation="90"
+                android:textAlignment="center" />
+
+
+            <TextView
+                android:id="@+id/Lateral_Esquerra_baix"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="235dp"
+                android:background="@color/grey"
+                android:padding="10dp"
+                android:text="@string/Lateral"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/A1gulla"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="200dp"
+                android:background="@color/grey"
+                android:padding="10dp"
+                android:rotation="-90"
+                android:text="Agulla"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/Lateral_Dreta_alt"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="240dp"
+                android:layout_marginTop="100dp"
+                android:background="@color/grey"
+                android:padding="10dp"
+                android:text="@string/Lateral"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/Baix_dreta"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="245dp"
+                android:background="@color/grey"
+                android:hint="@string/baix"
+                android:padding="10dp"
+                android:rotation="90"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lateral_Abajo_Derecha_1"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="245dp"
+                android:layout_marginTop="235dp"
+                android:background="@color/grey"
+                android:padding="10dp"
+                android:text="@string/Lateral"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lateral_Abajo_Derecha_2"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/lateral_Abajo_Izquierda_3"
+                android:layout_toEndOf="@+id/lateral_Abajo_Izquierda_3"
+                android:background="@color/grey"
+                android:padding="010dp"
+                android:text="@string/Lateral"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lateral_Abajo_Izquierda_2"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="290dp"
+                android:background="@color/grey"
+                android:padding="10dp"
+                android:text="@string/Lateral"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lateral_Abajo_Izquierda_3"
+                android:layout_width="@dimen/Pinyes_text_size"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="335dp"
+                android:background="@color/grey"
+                android:padding="10dp"
+                android:text="@string/Lateral"
+                android:textAlignment="center" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/genteColla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="right"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_menu_colla"
+        tools:ignore="VectorDrawableCompat" />
+
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="471dp" />
+
+
+</RelativeLayout>
+

@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.fragment_pinyes_tresdecinc">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+        android:id="@+id/Agulla"
+        android:layout_width="@dimen/Pinyes_text_size"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Baix_dreta"
+        android:layout_alignBottom="@+id/Baix_dreta"
+        android:layout_alignStart="@+id/Baix_dreta"
+        android:layout_marginLeft="@dimen/Margin_entre_text"
+        android:layout_marginStart="41dp"
+        android:background="@color/grey"
+        android:padding="10dp"
+        android:rotation="-90"
+        android:text="Agulla"
+        android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/Lateral_Dreta_alt"
+            android:layout_width="@dimen/Pinyes_text_size"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/Baix_dreta"
+            android:layout_alignEnd="@+id/Baix_dreta"
+            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="21dp"
+            android:background="@color/grey"
+            android:padding="10dp"
+            android:text="@string/Lateral"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/Baix_dreta"
+            android:layout_width="@dimen/Pinyes_text_size"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="209dp"
+            android:background="@color/grey"
+            android:hint="@string/baix"
+            android:padding="10dp"
+            android:rotation="90"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="@dimen/Pinyes_text_size"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/Lateral_Dreta_alt"
+            android:layout_below="@+id/Agulla"
+            android:layout_marginTop="25dp"
+            android:background="@color/grey"
+            android:padding="10dp"
+            android:text="@string/Lateral"
+            android:textAlignment="center" />
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>
