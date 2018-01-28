@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,7 +34,7 @@ import java.util.ArrayList;
  * Use the {@link pinya_de_cuatre#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class pinya_de_cuatre extends Fragment {
+public class pinya_de_cuatre extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,10 +52,11 @@ public class pinya_de_cuatre extends Fragment {
     private ListView listview;
     private String colla;
 
-    private String nombrePersona,nombre;
+    private String nombrePersona, nombre = "";
     private int[] values;
 
-    private Button pinya;
+    private Button baixDret, baixEsquerra, baixAbaix, baixDalt, agullaDret, agullaEsquerra, agullaAbaix, agullaDalt, crossaDaltEsquerra, crossaBaixEsquerra, crossaDaltDreta, crossaBaixDreta;
+
     public pinya_de_cuatre() {
         // Required empty public constructor
     }
@@ -94,17 +94,35 @@ public class pinya_de_cuatre extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view=inflater.inflate(R.layout.fragment_pinya_de_cuatre, container, false);
-pinya.findViewById(R.id.idboton);
+        View view = inflater.inflate(R.layout.fragment_pinya_de_cuatre, container, false);
 
-pinya.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        pinya=v.findViewById(pinya.getId());
-        pinya.setText(nombre);
-    }
-});
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        baixAbaix = (Button) view.findViewById(R.id.Baix_abajo);
+        baixDalt = (Button) view.findViewById(R.id.Baix_arriba);
+        baixDret = (Button) view.findViewById(R.id.Baix_derecha);
+        baixEsquerra = (Button) view.findViewById(R.id.Baix_izquierda);
+        agullaDalt = (Button) view.findViewById(R.id.Agulla_arriba);
+        agullaAbaix = (Button) view.findViewById(R.id.Agulla_abajo);
+        agullaDret = (Button) view.findViewById(R.id.Agulla_derecha);
+        agullaEsquerra = (Button) view.findViewById(R.id.Agulla_izquierda);
+        crossaDaltEsquerra = (Button) view.findViewById(R.id.Crosa_izquierda_arriba);
+        crossaBaixEsquerra = (Button) view.findViewById(R.id.Crosa_izquierda_abajo);
+        crossaDaltDreta = (Button) view.findViewById(R.id.Crosa_dreta_arriba);
+        crossaBaixDreta = (Button) view.findViewById(R.id.Crosa_derecha_abajo);
+
+        baixAbaix.setOnClickListener(this);
+        baixDret.setOnClickListener(this);
+        baixEsquerra.setOnClickListener(this);
+        baixDalt.setOnClickListener(this);
+        agullaEsquerra.setOnClickListener(this);
+        agullaDret.setOnClickListener(this);
+        agullaDalt.setOnClickListener(this);
+        agullaAbaix.setOnClickListener(this);
+        crossaDaltEsquerra.setOnClickListener(this);
+        crossaBaixEsquerra.setOnClickListener(this);
+        crossaDaltDreta.setOnClickListener(this);
+        crossaBaixDreta.setOnClickListener(this);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user.getEmail().equals("rubenniki@gmail.com")) {
 
@@ -170,11 +188,92 @@ pinya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                nombre= (String) ((TextView)view).getText();
-                Log.d("hola",nombre);
+                nombre = (String) ((TextView) view).getText();
+                Log.d("hola", nombre);
             }
         });
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.Baix_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    baixAbaix.setText(nombre);
+                    nombre="";
+                }
+
+                break;
+            case R.id.Baix_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    baixDalt.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Baix_derecha:
+                if (!nombre.equalsIgnoreCase("")) {
+                    baixDret.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Baix_izquierda:
+                if (!nombre.equalsIgnoreCase("")) {
+                    baixEsquerra.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Agulla_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    agullaAbaix.setText(nombre);
+
+                }
+                Log.d("Has entrado",nombre);
+                break;
+            case R.id.Agulla_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    agullaDalt.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Agulla_derecha:
+                if (!nombre.equalsIgnoreCase("")) {
+                    agullaDret.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Agulla_izquierda:
+                if (!nombre.equalsIgnoreCase("")) {
+                    agullaEsquerra.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Crosa_derecha_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    crossaBaixDreta.setText(nombre);
+                    nombre="";
+                }
+
+                break;
+            case R.id.Crosa_dreta_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    crossaDaltDreta.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Crosa_izquierda_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    crossaBaixEsquerra.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Crosa_izquierda_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    crossaDaltEsquerra.setText(nombre);
+                    nombre="";
+                }
+                break;
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -200,6 +299,7 @@ pinya.setOnClickListener(new View.OnClickListener() {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
