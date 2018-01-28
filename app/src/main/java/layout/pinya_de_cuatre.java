@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -202,31 +203,40 @@ public class pinya_de_cuatre extends Fragment implements View.OnClickListener {
                 if (!nombre.equalsIgnoreCase("")) {
                     baixAbaix.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
-
                 break;
             case R.id.Baix_arriba:
                 if (!nombre.equalsIgnoreCase("")) {
                     baixDalt.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.Baix_derecha:
                 if (!nombre.equalsIgnoreCase("")) {
                     baixDret.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.Baix_izquierda:
                 if (!nombre.equalsIgnoreCase("")) {
                     baixEsquerra.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.Agulla_abajo:
                 if (!nombre.equalsIgnoreCase("")) {
                     agullaAbaix.setText(nombre);
 
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 Log.d("Has entrado",nombre);
                 break;
@@ -240,18 +250,24 @@ public class pinya_de_cuatre extends Fragment implements View.OnClickListener {
                 if (!nombre.equalsIgnoreCase("")) {
                     agullaDret.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.Agulla_izquierda:
                 if (!nombre.equalsIgnoreCase("")) {
                     agullaEsquerra.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.Crosa_derecha_abajo:
                 if (!nombre.equalsIgnoreCase("")) {
                     crossaBaixDreta.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
 
                 break;
@@ -259,18 +275,24 @@ public class pinya_de_cuatre extends Fragment implements View.OnClickListener {
                 if (!nombre.equalsIgnoreCase("")) {
                     crossaDaltDreta.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.Crosa_izquierda_abajo:
                 if (!nombre.equalsIgnoreCase("")) {
                     crossaBaixEsquerra.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.Crosa_izquierda_arriba:
                 if (!nombre.equalsIgnoreCase("")) {
                     crossaDaltEsquerra.setText(nombre);
                     nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
                 }
                 break;
         }

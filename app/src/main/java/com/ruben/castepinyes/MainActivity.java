@@ -25,7 +25,7 @@ import layout.pinya_de_cuatre;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, FragmentColla.OnFragmentInteractionListener, FragmentPinya.OnFragmentInteractionListener, frament_fragment_pinyes.OnFragmentInteractionListener, FragmentInicio.OnFragmentInteractionListener, pinya_de_cuatre.OnFragmentInteractionListener, pinya_de_cinc.OnFragmentInteractionListener, fragment_pinyes_tresdecinc.OnFragmentInteractionListener,Mostrar_Colla.OnFragmentInteractionListener,EditarPersona.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FragmentColla.OnFragmentInteractionListener, FragmentPinya.OnFragmentInteractionListener, frament_fragment_pinyes.OnFragmentInteractionListener, FragmentInicio.OnFragmentInteractionListener, pinya_de_cuatre.OnFragmentInteractionListener, pinya_de_cinc.OnFragmentInteractionListener, fragment_pinyes_tresdecinc.OnFragmentInteractionListener, Mostrar_Colla.OnFragmentInteractionListener,EditarPersona.OnFragmentInteractionListener {
 
 
     @Override

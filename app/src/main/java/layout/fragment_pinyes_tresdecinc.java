@@ -4,11 +4,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ruben.castepinyes.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +32,7 @@ import com.ruben.castepinyes.R;
  * Use the {@link fragment_pinyes_tresdecinc#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_pinyes_tresdecinc extends Fragment {
+public class fragment_pinyes_tresdecinc extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,7 +42,15 @@ public class fragment_pinyes_tresdecinc extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private pinya_de_cuatre.OnFragmentInteractionListener mListener;
+
+    private ArrayList<String> arrayList = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter;
+    private DatabaseReference databaseReference;
+    private ListView listview;
+    private String colla;
+
+    private String nombrePersona, nombre = "";
 
     public fragment_pinyes_tresdecinc() {
         // Required empty public constructor
@@ -65,7 +87,74 @@ public class fragment_pinyes_tresdecinc extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_pinyes_tresdecinc, container, false);
+        View view=inflater.inflate(R.layout.fragment_fragment_pinyes_tresdecinc, container, false);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user.getEmail().equals("rubenniki@gmail.com")) {
+
+            colla = "Collaviladecans";
+            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Personas Colla");
+        } else {
+            colla = "Personas Colla";
+            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
+        }
+        listview = (ListView) view.findViewById(R.id.listview);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(colla).child("Personas Colla");
+
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+        listview.setAdapter(arrayAdapter);
+
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+
+                arrayList.add(nombrePersona);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+
+                arrayList.add(nombrePersona);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+
+                arrayList.add(nombrePersona);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+
+                arrayList.add(nombrePersona);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                nombre = (String) ((TextView) view).getText();
+                Log.d("hola", nombre);
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -79,7 +168,7 @@ public class fragment_pinyes_tresdecinc extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            //mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -90,6 +179,11 @@ public class fragment_pinyes_tresdecinc extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     /**
