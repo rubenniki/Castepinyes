@@ -49,8 +49,8 @@ public class Sing extends AppCompatActivity implements View.OnClickListener {
     private void loginUser() {
         user = textUser.getText().toString().trim();
         pass = textPass.getText().toString().trim();
-user="rubenniki@gmail.com";
-pass="adminpassword";
+        user = "rubenniki@gmail.com";
+        pass = "adminpassword";
         if (TextUtils.isEmpty(user)) {
             Toast.makeText(this, "El user no puede estar en blanco", Toast.LENGTH_SHORT).show();
             //paramos la funcion

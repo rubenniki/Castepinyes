@@ -37,24 +37,20 @@ public class Mostrar_Colla extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    private DatabaseReference databaseReference;
-    private ListView listview;
-    private String colla, nombrePersona, apellidoPersona;
-    private ArrayList<String> arrayList = new ArrayList();
-    private ArrayAdapter<String> arrayAdapter;
-
     Bundle bundle = new Bundle();
     final String nombre = bundle.getString("NOMBRE");
     final String apellido = bundle.getString("APELLIDO1");
     final String tel = bundle.getString("TEL");
     Boolean borrado;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+    private OnFragmentInteractionListener mListener;
+    private DatabaseReference databaseReference;
+    private ListView listview;
+    private String colla, nombrePersona, apellidoPersona;
+    private ArrayList<String> arrayList = new ArrayList();
+    private ArrayAdapter<String> arrayAdapter;
 
     public Mostrar_Colla() {
         // Required empty public constructor
@@ -132,6 +128,7 @@ public class Mostrar_Colla extends Fragment {
                 if (borrado) {
 
                 } else {
+                    nombrePersona=nombrePersona+" "+apellidoPersona;
                     arrayList.add(nombrePersona);
                     arrayAdapter.notifyDataSetChanged();
                 }

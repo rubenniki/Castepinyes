@@ -12,17 +12,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 
@@ -40,17 +44,21 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public String colla;
-    private Button btnConsultar, btnGuardar,btnEditar,btnEliminar;
-    private EditText etNombre, etApellido1,etTelefono;
+    private Button btnConsultar, btnGuardar, btnEditar, btnEliminar;
+    private EditText etNombre, etApellido1, etTelefono;
     private ProgressDialog progressDialog;
-    private DatabaseReference databaseReference;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
-    private Bundle bundle=new Bundle();
+    private Bundle bundle = new Bundle();
 
+    private DatabaseReference databaseReference;
+    private String colla, nombrePersona, apellidoPersona;
+    private ArrayList<String> arrayList = new ArrayList();
+    private ArrayAdapter<String> arrayAdapter;
+
+    private boolean estaPersona;
 
     public FragmentColla() {
         // Required empty public constructor
@@ -76,7 +84,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_colla, container, false);
+        final View v = inflater.inflate(R.layout.fragment_colla, container, false);
         if (R.id.fragmentColla == v.getId()) {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
@@ -112,6 +120,53 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
         btnEliminar = v.findViewById(R.id.btnEliminar);
 
         btnEliminar.setOnClickListener(this);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(colla).child("Personas Colla");
+
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                nombrePersona = nombrePersona + String.valueOf(dataSnapshot.child("apellido1").getValue());
+                arrayList.add(nombrePersona);
+                arrayAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                nombrePersona = nombrePersona + String.valueOf(dataSnapshot.child("apellido1").getValue());
+                arrayList.add(nombrePersona);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+
+                arrayList.add(nombrePersona);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+
+                arrayList.add(nombrePersona);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return v;
     }
@@ -122,22 +177,12 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-        /*btnConsultar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "hola",Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-
     }
 
     private void guardarPersonaCollaInformation() {
         String nombre = etNombre.getText().toString().trim();
         String apellido1 = etApellido1.getText().toString().trim();
-        String  telefono = etTelefono.getText().toString().trim();
+        String telefono = etTelefono.getText().toString().trim();
         PersonaCollaInformation personaCollaInformation;
 
         //Saltra error con la optencion del current user
@@ -211,9 +256,9 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
     private void mostrarGente() {
         String nombre = etNombre.getText().toString().trim();
         String apellido1 = etApellido1.getText().toString().trim();
-        String telefono=etTelefono.getText().toString().trim();
+        String telefono = etTelefono.getText().toString().trim();
         bundle.putString("COLLA", colla);
-        if (TextUtils.isEmpty(nombre)&& TextUtils.isEmpty(apellido1) && TextUtils.isEmpty(telefono) && !bundle.getBoolean("DELETE")){
+        if (TextUtils.isEmpty(nombre) && TextUtils.isEmpty(apellido1) && TextUtils.isEmpty(telefono) && !bundle.getBoolean("DELETE")) {
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("server/saving-data/fireblog/posts");
 
@@ -224,7 +269,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                     // whenever data at this location is updated.
                     String value = dataSnapshot.getValue(String.class);
                     Log.d(TAG, "Value is: " + value);
-                    bundle.putBoolean("DELETE",false);
+                    bundle.putBoolean("DELETE", false);
 
                     Fragment fragment = new Mostrar_Colla();
                     fragment.setArguments(bundle);
@@ -263,13 +308,13 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                     ringProgressDialog.dismiss();
                 }
             }).start();
-            bundle.putString("NOMBRE",nombre);
-            bundle.putString("APELLIDO",apellido1);
-            Fragment fragment=new Mostrar_Colla();
-            bundle.putBoolean("DELETE",true);
+            bundle.putString("NOMBRE", nombre);
+            bundle.putString("APELLIDO", apellido1);
+            Fragment fragment = new Mostrar_Colla();
+            bundle.putBoolean("DELETE", true);
             fragment.setArguments(bundle);
             replaceFragment(fragment);
-        }else{
+        } else {
             final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Guardant Persona ...", true);
             ringProgressDialog.setCancelable(true);
             new Thread(new Runnable() {
@@ -283,29 +328,13 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                     ringProgressDialog.dismiss();
                 }
             }).start();
-            bundle.putString("NOMBRE",nombre);
-            bundle.putString("APELLIDO",apellido1);
-            Fragment fragment=new Mostrar_Colla();
-            bundle.putBoolean("DELETE",true);
+            bundle.putString("NOMBRE", nombre);
+            bundle.putString("APELLIDO", apellido1);
+            Fragment fragment = new Mostrar_Colla();
+            bundle.putBoolean("DELETE", true);
             fragment.setArguments(bundle);
             replaceFragment(fragment);
         }
-
-
-
-    /*databaseReference.addValueEventListener(new ValueEventListener() {
-        @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                personaCollaInformation = dataSnapshot.getValue(PersonaCollaInformation.class);
-                System.out.println(personaCollaInformation);
-            }
-
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    });*/
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -317,12 +346,12 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnGuardar:
                 guardarPersonaCollaInformation();
                 break;
             case R.id.btnConsultar:
-                bundle.putBoolean("DELETE",false);
+                bundle.putBoolean("DELETE", false);
                 mostrarGente();
                 break;
             case R.id.btnEditar:
@@ -330,14 +359,12 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
 
                 break;
             case R.id.btnEliminar:
-                bundle.putBoolean("DELETE",true);
+                bundle.putBoolean("DELETE", true);
                 mostrarGente();
 
                 break;
 
         }
-
-
             /*
         Fragment fragment=new gentColla();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -366,7 +393,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
             return;
 
         } else if (TextUtils.isEmpty(telefono)) {
-            final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Editant Persona ...", true);
+            final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Comprovant informacio per editar persona ...", true);
             ringProgressDialog.setCancelable(true);
             new Thread(new Runnable() {
                 @Override
@@ -380,11 +407,21 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                     ringProgressDialog.dismiss();
                 }
             }).start();
-            bundle.putString("NOMBRE",nombre);
-            bundle.putString("APELLIDO",apellido1);
-            Fragment fragment=new EditarPersona();
-            fragment.setArguments(bundle);
-            replaceFragment(fragment);
+            bundle.putString("NOMBRE", nombre);
+            bundle.putString("APELLIDO", apellido1);
+            for (int i = 0; i < arrayList.size(); i++) {
+                nombrePersona = arrayList.get(i).toString();
+                if (nombrePersona.equalsIgnoreCase(nombre + apellido1)) {
+                    Fragment fragment = new EditarPersona();
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment);
+                    estaPersona=true;
+                }
+            }
+            if(!estaPersona){
+                Toast.makeText(getActivity(), "Esta persona no esta en la base de datos por lo tanto no lo puedes editar", Toast.LENGTH_LONG).show();
+            }
+
         } else {
             final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Guardant Persona ...", true);
             ringProgressDialog.setCancelable(true);
@@ -400,10 +437,10 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                 }
             }).start();
 
-            bundle.putString("NOMBRE",nombre);
-            bundle.putString("APELLIDO",apellido1);
-            bundle.putString("TELEFONO",telefono);
-            Fragment fragment=new EditarPersona();
+            bundle.putString("NOMBRE", nombre);
+            bundle.putString("APELLIDO", apellido1);
+            bundle.putString("TELEFONO", telefono);
+            Fragment fragment = new EditarPersona();
             fragment.setArguments(bundle);
             replaceFragment(fragment);
 

@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Button dosdecinc,pinyaTres,pinyaQuatro,pinyaCinco;
+    Button dosdecinc, pinyaTres, pinyaQuatro, pinyaCinco;
 
 
     // TODO: Rename and change types of parameters
@@ -84,11 +83,11 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
 
         dosdecinc = (Button) view.findViewById(R.id.dosdecinc);
         dosdecinc.setOnClickListener(this);
-        pinyaTres=(Button) view.findViewById(R.id.pinyaTres);
+        pinyaTres = (Button) view.findViewById(R.id.pinyaTres);
         pinyaTres.setOnClickListener(this);
-        pinyaQuatro=(Button) view.findViewById(R.id.pinyaQuatre);
+        pinyaQuatro = (Button) view.findViewById(R.id.pinyaQuatre);
         pinyaQuatro.setOnClickListener(this);
-        pinyaCinco=(Button) view.findViewById(R.id.pinyaCinc);
+        pinyaCinco = (Button) view.findViewById(R.id.pinyaCinc);
         pinyaCinco.setOnClickListener(this);
 
         return view;
@@ -97,7 +96,7 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Fragment fragment = null;
-        Toast.makeText(getActivity(),"id"+view.getId(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "id" + view.getId(), Toast.LENGTH_LONG).show();
         switch (view.getId()) {
             case (R.id.dosdecinc):
                 fragment = new frament_fragment_pinyes();
