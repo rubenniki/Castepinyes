@@ -91,10 +91,12 @@ public class EditarPersona extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final Bundle bundle = this.getArguments();
-        Log.d(bundle.getString("NOMBRE"), "pollon");
+        View view = inflater.inflate(R.layout.fragment_editar_persona, container, false);
+        etnombre = view.findViewById(R.id.editNombre);
+        etApellido = view.findViewById(R.id.editApellido1);
 
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_editar_persona, container, false);
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -129,8 +131,6 @@ public class EditarPersona extends Fragment {
                 if (nombrePersona.equalsIgnoreCase(bundle.getString("NOMBRE")) && apellidoPersona.equalsIgnoreCase(bundle.getString("NOMBRE"))) {
 
                     databaseReference.child(key);
-                   etnombre = view.findViewById(R.id.editNombre);
-                    etApellido = view.findViewById(R.id.editApellido1);
                     etnombre.setText(nombrePersona);
 
                 }
