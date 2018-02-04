@@ -128,15 +128,17 @@ public class EditarPersona extends Fragment {
                 apellidoPersona = String.valueOf(dataSnapshot.child("apellido1").getValue());
 
 
-                if (nombrePersona.equalsIgnoreCase(bundle.getString("NOMBRE")) && apellidoPersona.equalsIgnoreCase(bundle.getString("A"))) {
+                if (nombrePersona.equalsIgnoreCase(bundle.getString("NOMBRE")) && apellidoPersona.equalsIgnoreCase(bundle.getString("APELLIDO"))) {
                     key = dataSnapshot.getKey();
-                    Toast.makeText(getActivity(),nombrePersona,Toast.LENGTH_SHORT).show();
                     databaseReference.child(key);
                     etnombre.setText(nombrePersona);
+                    etApellido.setText(apellidoPersona);
 
+                }else{
+                    arrayList.add(nombrePersona);
+                    arrayAdapter.notifyDataSetChanged();
                 }
-                arrayList.add(nombrePersona);
-                arrayAdapter.notifyDataSetChanged();
+
 
             }
 

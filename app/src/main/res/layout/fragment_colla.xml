@@ -70,7 +70,7 @@
         android:id="@+id/btnConsultar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mostrar_a_toda_la_gente_de_la_colla"
+        android:text="@string/mostrar_tota_la_gent_de_la_colla"
         android:background="@drawable/boton_redondo"
         android:layout_marginTop="@dimen/fab_margin"
         android:textColor="#000000"/>
