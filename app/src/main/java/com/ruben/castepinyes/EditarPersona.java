@@ -126,10 +126,11 @@ public class EditarPersona extends Fragment {
 
                 nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
                 apellidoPersona = String.valueOf(dataSnapshot.child("apellido1").getValue());
-                key = dataSnapshot.getKey();
 
-                if (nombrePersona.equalsIgnoreCase(bundle.getString("NOMBRE")) && apellidoPersona.equalsIgnoreCase(bundle.getString("NOMBRE"))) {
 
+                if (nombrePersona.equalsIgnoreCase(bundle.getString("NOMBRE")) && apellidoPersona.equalsIgnoreCase(bundle.getString("A"))) {
+                    key = dataSnapshot.getKey();
+                    Toast.makeText(getActivity(),nombrePersona,Toast.LENGTH_SHORT).show();
                     databaseReference.child(key);
                     etnombre.setText(nombrePersona);
 
@@ -179,6 +180,7 @@ public class EditarPersona extends Fragment {
             public void onClick(View v) {
                 apellidoPersona= String.valueOf(etApellido.getText());
                 nombrePersona=String.valueOf(etnombre.getText());
+                Toast.makeText(getActivity(),nombrePersona,Toast.LENGTH_LONG).show();
                 PersonaCollaInformation persona = new PersonaCollaInformation(nombrePersona,apellidoPersona);
                 databaseReference.child(key).setValue(persona);
             }
