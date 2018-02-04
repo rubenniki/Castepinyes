@@ -15,10 +15,6 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/Pinyes" />
 
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
     </group>
 
     <item android:title="Communicate">
@@ -30,7 +26,7 @@
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Contact" />
         </menu>
     </item>
 

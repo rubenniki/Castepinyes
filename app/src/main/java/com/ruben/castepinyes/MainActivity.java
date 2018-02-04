@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import layout.fragment_pinyes_tresdecinc;
 import layout.frament_fragment_pinyes;
@@ -76,20 +77,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(this,"hola",Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -99,7 +97,6 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         MediaPlayer music = MediaPlayer.create(MainActivity.this, R.raw.musicacastellstoccastells);
 
         int id = item.getItemId();
@@ -126,12 +123,19 @@ public class MainActivity extends AppCompatActivity
             FragmentoSeleccionado = true;
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
             music.start();
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
+            /*Snackbar.make(View, "Opening email to send a error", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            Intent Email = new Intent(Intent.ACTION_SEND);
+            Email.setType("text/email");
+            Email.putExtra(Intent.EXTRA_EMAIL,
+                    new String[]{"Castepinyes@gmail.com"});  //developer 's email
+            Email.putExtra(Intent.EXTRA_TEXT, "Dear Developer Name," + "\n");  //Email 's Greeting text
+            startActivity(Intent.createChooser(Email, "Abre el email"));
+        */
         }
         if (FragmentoSeleccionado == true) {
 
