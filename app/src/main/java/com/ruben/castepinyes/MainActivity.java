@@ -19,6 +19,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+import com.google.android.gms.ads.MobileAds;
+
 import layout.fragment_pinyes_tresdecinc;
 import layout.frament_fragment_pinyes;
 import layout.pinya_de_cinc;
@@ -127,15 +132,13 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-            /*Snackbar.make(View, "Opening email to send a error", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
             Intent Email = new Intent(Intent.ACTION_SEND);
             Email.setType("text/email");
             Email.putExtra(Intent.EXTRA_EMAIL,
                     new String[]{"Castepinyes@gmail.com"});  //developer 's email
             Email.putExtra(Intent.EXTRA_TEXT, "Dear Developer Name," + "\n");  //Email 's Greeting text
             startActivity(Intent.createChooser(Email, "Abre el email"));
-        */
+
         }
         if (FragmentoSeleccionado == true) {
 

@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import layout.fragment_pinyes_tresdecinc;
 import layout.frament_fragment_pinyes;
 import layout.pinya_de_cinc;
@@ -39,6 +43,8 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private AdView mAdView;
 
     public FragmentPinya() {
         // Required empty public constructor
@@ -70,6 +76,9 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
     }
 
     @Override
@@ -80,7 +89,17 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }*/
 
+        MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 
+
+        mAdView = new AdView(getActivity());
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest);
         dosdecinc = (Button) view.findViewById(R.id.dosdecinc);
         dosdecinc.setOnClickListener(this);
         pinyaTres = (Button) view.findViewById(R.id.pinyaTres);
