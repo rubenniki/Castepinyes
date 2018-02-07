@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -54,6 +57,8 @@ public class EditarPersona extends Fragment {
     private ArrayAdapter<String> arrayAdapter;
 
     EditText etnombre,etApellido;
+
+    private AdView mAdView;
 
     public EditarPersona() {
         // Required empty public constructor
@@ -95,7 +100,12 @@ public class EditarPersona extends Fragment {
         etnombre = view.findViewById(R.id.editNombre);
         etApellido = view.findViewById(R.id.editApellido1);
 
-        // Inflate the layout for this fragment
+        MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
+
+
+        mAdView = view.findViewById(R.id.publi);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

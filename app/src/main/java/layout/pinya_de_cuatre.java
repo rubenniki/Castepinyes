@@ -190,7 +190,7 @@ public class pinya_de_cuatre extends Fragment implements View.OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 nombre = (String) ((TextView) view).getText();
-                Log.d("hola", nombre);
+
             }
         });
         return view;

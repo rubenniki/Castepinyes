@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -58,6 +61,8 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
     private ArrayList<String> arrayList = new ArrayList();
     private ArrayAdapter<String> arrayAdapter;
 
+    private AdView mAdView;
+
     private boolean estaPersona;
 
     public FragmentColla() {
@@ -92,7 +97,12 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
         etApellido1 = (EditText) v.findViewById(R.id.etApellido1);
         etTelefono = (EditText) v.findViewById(R.id.etTelefono);
 
+        MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 
+
+        mAdView = v.findViewById(R.id.publi);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user.getEmail().equals("rubenniki@gmail.com")) {
 

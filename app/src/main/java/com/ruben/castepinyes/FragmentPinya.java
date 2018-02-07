@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
@@ -85,20 +86,15 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pinyes, container, false);
-        /*if (R.id.fragmentPinyes==view.getId()){
+        if(R.id.fragmentPinyes==view.getId()) {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }*/
+        }
 
         MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 
 
-        mAdView = new AdView(getActivity());
-
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-
-        // Start loading the ad in the background.
+        mAdView = view.findViewById(R.id.publi);
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         dosdecinc = (Button) view.findViewById(R.id.dosdecinc);
         dosdecinc.setOnClickListener(this);

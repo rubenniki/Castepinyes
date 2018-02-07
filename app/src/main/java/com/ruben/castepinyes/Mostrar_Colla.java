@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -37,10 +39,6 @@ public class Mostrar_Colla extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Bundle bundle = new Bundle();
-    final String nombre = bundle.getString("NOMBRE");
-    final String apellido = bundle.getString("APELLIDO1");
-    final String tel = bundle.getString("TEL");
     Boolean borrado;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -51,6 +49,7 @@ public class Mostrar_Colla extends Fragment {
     private String colla, nombrePersona, apellidoPersona;
     private ArrayList<String> arrayList = new ArrayList();
     private ArrayAdapter<String> arrayAdapter;
+    private AdView mAdView;
 
     public Mostrar_Colla() {
         // Required empty public constructor
@@ -92,6 +91,9 @@ public class Mostrar_Colla extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_mostrar__colla, container, false);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        mAdView = view.findViewById(R.id.publi);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         if (user.getEmail().equals("rubenniki@gmail.com")) {
 
