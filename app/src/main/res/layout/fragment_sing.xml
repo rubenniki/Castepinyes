@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/sing_page">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -57,12 +58,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textClock"
+                android:layout_below="@+id/icono_castepinyes"
                 android:layout_marginTop="30dp"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="@string/nombre"
-                android:inputType="text" />
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/textPass"
@@ -85,6 +86,13 @@
                 android:layout_marginTop="27dp"
                 android:gravity="center"
                 android:textSize="35sp" />
+            <ImageView
+                android:id="@+id/icono_castepinyes"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_below="@id/textClock"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/iconocastepinyes"/>
 
             <Button
                 android:id="@+id/Sing_button_resset"
@@ -94,6 +102,14 @@
                 android:layout_centerHorizontal="true"
                 android:background="#00ffffff"
                 android:text="@string/Sing_Button_ressetpassword" />
+
+            <Button
+                android:id="@+id/Sing_button_anonimo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Sing_button_resset"
+                android:background="@drawable/boton_redondo"
+                android:text="@string/visualizar_pinyes_sing" />
 
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
