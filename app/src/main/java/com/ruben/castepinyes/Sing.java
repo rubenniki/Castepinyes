@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class Sing extends AppCompatActivity implements View.OnClickListener {
-    private Button butonIn, butonReset;
+    private Button butonIn, butonReset,butonAnonimo;
     private EditText textUser, textPass;
     private String user, pass;
     private ProgressDialog progressDialog;
@@ -43,6 +43,9 @@ public class Sing extends AppCompatActivity implements View.OnClickListener {
 
         butonReset = (Button) findViewById(R.id.Sing_button_resset);
         butonReset.setOnClickListener(this);
+
+        butonAnonimo=(Button) findViewById(R.id.Sing_button_anonimo);
+        butonAnonimo.setOnClickListener(this);
 
     }
 
@@ -102,13 +105,20 @@ public class Sing extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        if (v == butonIn) {
-            loginUser();
-
-        } else if (v == butonReset) {
-            ressetPass();
+        switch(v.getId()){
+            case R.id.buttonEntrar:
+                loginUser();
+                break;
+            case R.id.Sing_button_resset:
+                ressetPass();
+                break;
+            case R.id.Sing_button_anonimo:
+                Intent intent = new Intent(Sing.this, SelectorDePinyes.class);
+                startActivity(intent);
+                break;
         }
+
+
     }
 
 
