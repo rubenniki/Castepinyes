@@ -104,7 +104,6 @@ public class Mostrar_Colla extends Fragment {
             databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
         }
         // Inflate the layout for this fragmentView
-        FloatingActionButton fab = view.findViewById(R.id.genteColla);
 
 
         listview = (ListView) view.findViewById(R.id.listview);
