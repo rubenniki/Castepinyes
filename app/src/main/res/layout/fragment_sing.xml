@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/sing_page">
+    android:id="@+id/sing_page"
+    android:background="@color/blanc">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

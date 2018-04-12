@@ -1,5 +1,8 @@
 package com.ruben.castepinyes;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -105,7 +108,14 @@ public class SelectorDePinyes extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String nombre = listview.getItemAtPosition(position).toString();
-                Toast.makeText(getApplication(), nombre, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Has seleccionadao la colla de "+nombre, Toast.LENGTH_LONG).show();
+
+                Fragment login = new Fotos_Colla();
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.selector_de_pinyes, login);
+                transaction.addToBackStack(null);
+                transaction.commit();
 
             }
 
