@@ -1,11 +1,14 @@
 package com.ruben.castepinyes;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -13,7 +16,7 @@ import java.util.ArrayList;
  * Created by ruben on 16/03/2018.
  */
 
-public class Adapter_foto_listView extends BaseAdapter{
+public class Adapter_foto_listView extends BaseAdapter {
 
     public ArrayList imagen;
     public Context context;
@@ -51,11 +54,12 @@ public class Adapter_foto_listView extends BaseAdapter{
 
             viewHolder = new ViewHolder();
 
-            viewHolder.imagen=convertView.findViewById(R.id.Foto_pinya);
+            viewHolder.imagen = convertView.findViewById(R.id.Foto_pinya);
 
-            Picasso.get().load(imagen.get(position)).into(viewHolder.imagen);
+            Picasso.get().load((Uri) imagen.get(position)).into(viewHolder.imagen);
 
 
-        return null;
+        }
+        return convertView;
     }
 }
