@@ -17,7 +17,6 @@ import com.google.firebase.storage.StorageReference;
  */
 public class Fotos_Colla extends Fragment {
 
-
     public Fotos_Colla() {
         // Required empty public constructor
     }
