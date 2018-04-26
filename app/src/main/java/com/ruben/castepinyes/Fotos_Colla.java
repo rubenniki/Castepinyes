@@ -6,10 +6,13 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 
 /**
@@ -17,6 +20,9 @@ import com.google.firebase.storage.StorageReference;
  */
 public class Fotos_Colla extends Fragment {
 
+    ListView fotos;
+    public ArrayList imagen;
+    Adapter_foto_listView adapter_foto_listView;
     public Fotos_Colla() {
         // Required empty public constructor
     }
@@ -27,10 +33,13 @@ public class Fotos_Colla extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_fotos__colla, container, false);
+
+        fotos=view.findViewById(R.id.Foto_pinya);
+
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference hola = storage.getReference().child("CollaViladecans");
-        Toast.makeText(getActivity(), hola.getName() , Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(getActivity(), (CharSequence) hola.getDownloadUrl(), Toast.LENGTH_SHORT).show();
+        adapter_foto_listView=new Adapter_foto_listView(imagen,getActivity());
 
 
         return view;

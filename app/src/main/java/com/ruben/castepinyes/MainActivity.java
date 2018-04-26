@@ -37,27 +37,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Opening email to send a error", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent Email = new Intent(Intent.ACTION_SEND);
-                Email.setType("text/email");
-                Email.putExtra(Intent.EXTRA_EMAIL,
-                        new String[]{"Castepinyes@gmail.com"});  //developer 's email
-                Email.putExtra(Intent.EXTRA_TEXT, "Dear Developer Name," + "\n");  //Email 's Greeting text
-                startActivity(Intent.createChooser(Email, "Abre el email"));
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -127,6 +110,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new FragmentInicio();
             FragmentoSeleccionado = true;
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             music.start();
         } else if (id == R.id.nav_share) {
 

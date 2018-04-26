@@ -1,8 +1,11 @@
 package layout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -88,6 +91,22 @@ public class fragment_pinyes_tresdecinc extends Fragment implements View.OnClick
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_fragment_pinyes_tresdecinc, container, false);
+
+        /*FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Opening email to send a error", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent Email = new Intent(Intent.ACTION_SEND);
+                Email.setType("text/email");
+                Email.putExtra(Intent.EXTRA_EMAIL,
+                        new String[]{"Castepinyes@gmail.com"});  //developer 's email
+                Email.putExtra(Intent.EXTRA_TEXT, "Dear Developer Name," + "\n");  //Email 's Greeting text
+                startActivity(Intent.createChooser(Email, "Abre el email"));
+            }
+        });*/
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user.getEmail().equals("rubenniki@gmail.com")) {
