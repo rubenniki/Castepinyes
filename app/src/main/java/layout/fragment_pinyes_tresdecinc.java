@@ -138,56 +138,46 @@ public class fragment_pinyes_tresdecinc extends Fragment implements View.OnClick
             }
         });
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user.getEmail().equals("rubenniki@gmail.com")) {
-
-            colla = "Collaviladecans";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Personas Colla");
-        } else {
-            colla = "Personas Colla";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
-        }
         listview = (ListView) view.findViewById(R.id.listview);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(colla).child("Personas Colla");
+        nombrePersona=getArguments().getString("usuario");
 
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(nombrePersona).child("Personas Colla");
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
         listview.setAdapter(arrayAdapter);
-
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                String string = String.valueOf(dataSnapshot.child("nombre").getValue());
 
-                arrayList.add(nombrePersona);
+                arrayList.add(string);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                String string = String.valueOf(dataSnapshot.child("nombre").getValue());
 
-                arrayList.add(nombrePersona);
+                arrayList.add(string);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                String string = String.valueOf(dataSnapshot.child("nombre").getValue());
 
-                arrayList.add(nombrePersona);
+                arrayList.add(string);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                String string = String.valueOf(dataSnapshot.child("nombre").getValue());
 
-                arrayList.add(nombrePersona);
+                arrayList.add(string);
                 arrayAdapter.notifyDataSetChanged();
             }
 

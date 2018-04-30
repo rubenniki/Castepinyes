@@ -54,7 +54,7 @@ public class frament_fragment_pinyes extends Fragment implements View.OnClickLis
     private OnFragmentInteractionListener mListener;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
-    private String nombre="";
+    private String nombre="",nombrePersona;
 
     private Button Agulla_izquierda,Baix_izquierda,Agulla_derecha,Baix_derecha,Crosa_dreta_arriba,Crosa_izquierda_arriba,Crosa_izquierda_abajo,Vent_abajo,Vent_arriba,Crosa_dreta_abajo;
 
@@ -96,15 +96,7 @@ public class frament_fragment_pinyes extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user.getEmail().equals("rubenniki@gmail.com")) {
 
-            colla = "Collaviladecans";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Personas Colla");
-        } else {
-            colla = "Personas Colla";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
-        }
         // Inflate the layout for this fragmentView
         View view = inflater.inflate(R.layout.fragment_frament__pinyes_dosdecinc, container, false);
         FloatingActionButton fab = view.findViewById(R.id.floatGuardar);
@@ -133,8 +125,9 @@ public class frament_fragment_pinyes extends Fragment implements View.OnClickLis
 
 
         listview = (ListView) view.findViewById(R.id.listview);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(colla).child("Personas Colla");
+        nombrePersona=getArguments().getString("usuario");
 
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(nombrePersona).child("Personas Colla");
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
         listview.setAdapter(arrayAdapter);
         databaseReference.addChildEventListener(new ChildEventListener() {
