@@ -36,7 +36,7 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Button dosdecinc, pinyaTres, pinyaQuatro, pinyaCinco;
+    Button dosdecinc, pinyaTres, pinyaQuatro, pinyaCinco, pinyaSeis;
 
 
     // TODO: Rename and change types of parameters
@@ -104,6 +104,8 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
         pinyaQuatro.setOnClickListener(this);
         pinyaCinco = (Button) view.findViewById(R.id.pinyaCinc);
         pinyaCinco.setOnClickListener(this);
+        pinyaSeis = (Button) view.findViewById(R.id.pinyaCinc);
+        pinyaSeis.setOnClickListener(this);
 
         return view;
     }
@@ -135,7 +137,7 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
-            case 6:
+            case R.id.pinyaSeis:
                 break;
 
         }

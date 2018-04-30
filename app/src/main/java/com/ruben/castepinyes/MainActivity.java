@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(Intent.createChooser(Email, "Abre el email"));
 
         }
-        if (FragmentoSeleccionado == true) {
+        if (FragmentoSeleccionado) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
         }
