@@ -45,7 +45,7 @@ public class pinya_de_cinc extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private String colla,nombrePersona;
+    private String colla,nombrePersona,nombre="";
     private ArrayList<String> arrayList =new ArrayList();
     private ArrayAdapter<String> arrayAdapter;
     private DatabaseReference databaseReference;
@@ -108,7 +108,7 @@ public class pinya_de_cinc extends Fragment {
             databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
         }
         // Inflate the layout for this fragmentView
-        FloatingActionButton fab = view.findViewById(R.id.genteColla);
+        FloatingActionButton fab = view.findViewById(R.id.floatGuardar);
 
 
         listview = (ListView) view.findViewById(R.id.listview);
@@ -162,26 +162,12 @@ public class pinya_de_cinc extends Fragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String nombre =listview.getItemAtPosition(position).toString();
-                Toast.makeText(getActivity(),nombre,Toast.LENGTH_LONG).show();
-                if (values==null){
 
-                }else {
-                    moveNombre(nombre,view,values);
-                }
+                nombre = (String) ((TextView) view).getText();
 
             }
-
-
         });
         return view;
-    }
-    private void moveNombre(String parent, View view, int[] values) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(parent);
-        //textView.setX(values[0]);
-        Toast.makeText(getActivity(),values[0]+" "+values[1],Toast.LENGTH_LONG).show();
-        //textView.setY(values[1]);
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -13,8 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,6 +54,8 @@ public class fragment_pinyes_tresdecinc extends Fragment implements View.OnClick
     private DatabaseReference databaseReference;
     private ListView listview;
     private String colla;
+    private Button Baix_arriba,Baix_derecha,Baix_izquierda,Agulla_arriba,Agulla_derecha,Agulla_izquierda,Crosa_arriba_izquierda,Crosa_arriba_derecha,Crosa_izquierda_arriba,Crosa_izquierda_abajo,Crosa_dreta_arriba,Crosa_dreta_abajo;
+
 
     private String nombrePersona, nombre = "";
 
@@ -92,7 +96,34 @@ public class fragment_pinyes_tresdecinc extends Fragment implements View.OnClick
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_fragment_pinyes_tresdecinc, container, false);
 
-        /*FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        Baix_arriba = (Button) view.findViewById(R.id.Baix_arriba);
+        Baix_derecha = (Button) view.findViewById(R.id.Baix_derecha);
+        Baix_izquierda = (Button) view.findViewById(R.id.Baix_izquierda);
+        Agulla_arriba = (Button) view.findViewById(R.id.Agulla_arriba);
+        Agulla_derecha = (Button) view.findViewById(R.id.Agulla_derecha);
+        Agulla_izquierda = (Button) view.findViewById(R.id.Agulla_izquierda);
+        Crosa_arriba_izquierda = (Button) view.findViewById(R.id.Crosa_arriba_izquierda);
+        Crosa_arriba_derecha = (Button) view.findViewById(R.id.Crosa_arriba_derecha);
+        Crosa_izquierda_arriba = (Button) view.findViewById(R.id.Crosa_izquierda_arriba);
+        Crosa_izquierda_abajo = (Button) view.findViewById(R.id.Crosa_izquierda_abajo);
+        Crosa_dreta_arriba = (Button) view.findViewById(R.id.Crosa_dreta_arriba);
+        Crosa_dreta_abajo = (Button) view.findViewById(R.id.Crosa_dreta_abajo);
+
+
+        Baix_derecha.setOnClickListener(this);
+        Baix_izquierda.setOnClickListener(this);
+        Baix_arriba.setOnClickListener(this);
+        Agulla_izquierda.setOnClickListener(this);
+        Agulla_derecha.setOnClickListener(this);
+        Agulla_arriba.setOnClickListener(this);
+        Crosa_arriba_izquierda.setOnClickListener(this);
+        Crosa_arriba_derecha.setOnClickListener(this);
+        Crosa_izquierda_arriba.setOnClickListener(this);
+        Crosa_izquierda_abajo.setOnClickListener(this);
+        Crosa_dreta_arriba.setOnClickListener(this);
+        Crosa_dreta_abajo.setOnClickListener(this);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.floatGuardar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +136,7 @@ public class fragment_pinyes_tresdecinc extends Fragment implements View.OnClick
                 Email.putExtra(Intent.EXTRA_TEXT, "Dear Developer Name," + "\n");  //Email 's Greeting text
                 startActivity(Intent.createChooser(Email, "Abre el email"));
             }
-        });*/
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -202,6 +233,103 @@ public class fragment_pinyes_tresdecinc extends Fragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.Baix_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Baix_arriba.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Baix_derecha:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Baix_derecha.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Baix_izquierda:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Baix_izquierda.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Agulla_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Agulla_arriba.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Agulla_derecha:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Agulla_derecha.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Agulla_izquierda:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Agulla_izquierda.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Crosa_dreta_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_dreta_abajo.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+
+                break;
+            case R.id.Crosa_dreta_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_dreta_arriba.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Crosa_izquierda_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_izquierda_abajo.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Crosa_izquierda_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_izquierda_arriba.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Crosa_arriba_izquierda:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_arriba_izquierda.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Crosa_arriba_derecha:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_arriba_derecha.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
 
     }
 
