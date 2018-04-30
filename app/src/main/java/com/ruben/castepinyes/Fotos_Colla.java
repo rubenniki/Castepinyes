@@ -37,8 +37,8 @@ public class Fotos_Colla extends Fragment {
         fotos=view.findViewById(R.id.Foto_pinya);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference hola = storage.getReference().child("CollaViladecans");
-        Toast.makeText(getActivity(), (CharSequence) hola.getDownloadUrl(), Toast.LENGTH_SHORT).show();
+        StorageReference hola = storage.getReference().child("CollaViladecans").child("ac_a1721.jpg");
+        Toast.makeText(getActivity(), (CharSequence) hola.getName(), Toast.LENGTH_SHORT).show();
         adapter_foto_listView=new Adapter_foto_listView(imagen,getActivity());
 
 

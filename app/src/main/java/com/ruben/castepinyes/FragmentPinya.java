@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,7 +17,17 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
+import layout.Fragment_pinye_de_6;
 import layout.fragment_pinyes_tresdecinc;
 import layout.frament_fragment_pinyes;
 import layout.pinya_de_cinc;
@@ -42,6 +53,12 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ArrayList<String> arrayList =new ArrayList();
+    private ArrayAdapter<String> arrayAdapter;
+    private DatabaseReference databaseReference;
+    private String string;
+    private Bundle args = new Bundle();
 
     private OnFragmentInteractionListener mListener;
 
@@ -90,6 +107,56 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("cuentasDePinyas");
+        //user.getEmail().split("@")[0]
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                string = (String) dataSnapshot.getValue();
+
+                args.putString("usuario", string);
+                arrayList.add(string);
+                arrayAdapter.notifyDataSetChanged();
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                string = dataSnapshot.getValue().toString();
+
+                arrayList.add(string);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                string = dataSnapshot.getValue().toString();
+
+                arrayList.add(string);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                string = dataSnapshot.getValue().toString();
+
+                arrayList.add(string);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 
 
@@ -104,7 +171,7 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
         pinyaQuatro.setOnClickListener(this);
         pinyaCinco = (Button) view.findViewById(R.id.pinyaCinc);
         pinyaCinco.setOnClickListener(this);
-        pinyaSeis = (Button) view.findViewById(R.id.pinyaCinc);
+        pinyaSeis = (Button) view.findViewById(R.id.pinyaSeis);
         pinyaSeis.setOnClickListener(this);
 
         return view;
@@ -117,27 +184,35 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case (R.id.dosdecinc):
                 fragment = new frament_fragment_pinyes();
+                fragment.setArguments(args);
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
             case R.id.pinyaTres:
 
                 fragment = new fragment_pinyes_tresdecinc();
+                fragment.setArguments(args);
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
                 break;
             case R.id.pinyaQuatre:
                 fragment = new pinya_de_cuatre();
+                fragment.setArguments(args);
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
             case R.id.pinyaCinc:
                 fragment = new pinya_de_cinc();
+                fragment.setArguments(args);
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
             case R.id.pinyaSeis:
+                fragment = new Fragment_pinye_de_6();
+                fragment.setArguments(args);
+                replaceFragment(fragment);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
 
         }
