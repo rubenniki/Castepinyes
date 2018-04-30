@@ -47,7 +47,7 @@
             android:layout_marginBottom="@dimen/fab_margin"/>
 
         <Button
-            android:id="@+id/pinyadesis"
+            android:id="@+id/pinyaSeis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="pinya de 6"
