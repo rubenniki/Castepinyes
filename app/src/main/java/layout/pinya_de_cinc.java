@@ -106,8 +106,8 @@ public class pinya_de_cinc extends Fragment implements View.OnClickListener {
         Agulla_abajo = (Button) view.findViewById(R.id.Agulla_abajo);
         Crosa_arriba_izquierda = (Button) view.findViewById(R.id.Crosa_arriba_izquierda);
         Crosa_arriba_derecha = (Button) view.findViewById(R.id.Crosa_arriba_derecha);
-        Crosa_derecha_abajo = (Button) view.findViewById(R.id.Crosa_izquierda_arriba);
-        Crosa_derecha_arriba_2 = (Button) view.findViewById(R.id.Crosa_izquierda_abajo);
+        Crosa_derecha_abajo = (Button) view.findViewById(R.id.Crosa_derecha_abajo);
+        Crosa_derecha_arriba_2 = (Button) view.findViewById(R.id.Crosa_derecha_arriba_2);
         Crosa_dreta_arriba = (Button) view.findViewById(R.id.Crosa_dreta_arriba);
         Crosa_dreta_abajo = (Button) view.findViewById(R.id.Crosa_dreta_abajo);
         Crosa_dreta_arriba_2 = (Button) view.findViewById(R.id.Crosa_dreta_arriba_2);
