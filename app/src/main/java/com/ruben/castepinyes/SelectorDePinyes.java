@@ -28,6 +28,7 @@ public class SelectorDePinyes extends Fragment implements View.OnClickListener {
     private DatabaseReference databaseReference;
     private ArrayAdapter arrayAdapter;
     private ArrayList<String> arrayList = new ArrayList();
+    private Bundle bundle=new Bundle();
 
     public SelectorDePinyes() {
         // Required empty public constructor
@@ -62,6 +63,7 @@ public class SelectorDePinyes extends Fragment implements View.OnClickListener {
 
             if(separated[ultimo].contains("Colla")){
                 if (nombreColla.equalsIgnoreCase(separated[ultimo])){
+                    bundle.putString("usuario",nombreColla);
                     arrayList.add(separated[ultimo]);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -129,6 +131,7 @@ if(separated[ultimo].contains("colla")){
                 Toast.makeText(getActivity(), "Has seleccionadao la colla de "+nombre, Toast.LENGTH_LONG).show();
 
                 Fragment login = new Fotos_Colla();
+                login.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(R.id.selector_de_pinyes, login);

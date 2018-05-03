@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ruben.castepinyes.Fotos_Colla"
-    android:background="@color/blanc">
+    android:background="@color/blanc"
+    android:id="@+id/Fotos_colla">
 
     <!-- TODO: Update blank fragment layout -->
     <ListView

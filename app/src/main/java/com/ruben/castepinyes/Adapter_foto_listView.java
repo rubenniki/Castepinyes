@@ -49,17 +49,21 @@ public class Adapter_foto_listView extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.adapter_fotos_pinya, parent, false);
-
+        View rowView=convertView;
+        if (rowView == null) {
+            rowView = LayoutInflater.from(context).inflate(R.layout.adapter_fotos_pinya, parent, false);
             viewHolder = new ViewHolder();
 
-            viewHolder.imagen = convertView.findViewById(R.id.Foto_pinya);
+            viewHolder.imagen = rowView.findViewById(R.id.Foto_pinya);
 
             Picasso.get().load((Uri) imagen.get(position)).into(viewHolder.imagen);
-
-
         }
-        return convertView;
+
+
+
+
+
+
+        return rowView;
     }
 }
