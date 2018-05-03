@@ -26,11 +26,6 @@ public class Adapter_foto_listView extends BaseAdapter {
         this.context = context;
     }
 
-    private static class ViewHolder {
-
-        public ImageView imagen;
-    }
-
     @Override
     public int getCount() {
         return imagen.size();
@@ -49,7 +44,7 @@ public class Adapter_foto_listView extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        View rowView=convertView;
+        View rowView = convertView;
         if (rowView == null) {
             rowView = LayoutInflater.from(context).inflate(R.layout.adapter_fotos_pinya, parent, false);
             viewHolder = new ViewHolder();
@@ -60,10 +55,11 @@ public class Adapter_foto_listView extends BaseAdapter {
         }
 
 
-
-
-
-
         return rowView;
+    }
+
+    private static class ViewHolder {
+
+        public ImageView imagen;
     }
 }

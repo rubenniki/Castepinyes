@@ -188,11 +188,6 @@ uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
         Toast.makeText(getContext(),"S'ha guardat la pinya",Toast.LENGTH_LONG).show();
     }
 });
-               /* Bundle bundle=new Bundle();
-                bundle.putParcelable("foto",foto);
-                Fragment fragment= new MostrarFotoPinyaFragment();
-                fragment.setArguments(bundle);
-                replaceFragment(fragment);*/
             }
         });
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

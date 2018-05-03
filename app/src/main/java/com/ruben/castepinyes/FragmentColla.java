@@ -371,7 +371,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btnEliminar:
                 bundle.putBoolean("DELETE", true);
-                eliminar=true;
+                eliminar = true;
                 mostrarGente();
 
                 break;
@@ -427,16 +427,16 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                     Fragment fragment = new EditarPersona();
                     fragment.setArguments(bundle);
                     replaceFragment(fragment);
-                    estaPersona=true;
+                    estaPersona = true;
                 }
             }
-            if(!estaPersona){
+            if (!estaPersona) {
 
                 Toast.makeText(getActivity(), "Esta persona no esta en la base de datos por lo tanto no lo puedes editar", Toast.LENGTH_LONG).show();
             }
 
         } else {
-            if(eliminar==false){
+            if (eliminar == false) {
                 final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Editant Persona ...", true);
                 ringProgressDialog.setCancelable(true);
                 new Thread(new Runnable() {
@@ -450,7 +450,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                         ringProgressDialog.dismiss();
                     }
                 }).start();
-            }else{
+            } else {
                 final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Esborrant Persona ...", true);
                 ringProgressDialog.setCancelable(true);
                 new Thread(new Runnable() {

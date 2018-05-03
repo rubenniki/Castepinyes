@@ -14,16 +14,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -54,7 +47,7 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    private ArrayList<String> arrayList =new ArrayList();
+    private ArrayList<String> arrayList = new ArrayList();
     private ArrayAdapter<String> arrayAdapter;
     private DatabaseReference databaseReference;
     private String string;
@@ -96,18 +89,17 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
         }
 
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pinyes, container, false);
-        if(R.id.fragmentPinyes==view.getId()) {
+        if (R.id.fragmentPinyes == view.getId()) {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-args.putString("usuario",getArguments().getString("usuario"));
+        args.putString("usuario", getArguments().getString("usuario"));
 
         MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 

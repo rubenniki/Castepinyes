@@ -5,9 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,14 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,12 +42,12 @@ import layout.pinya_de_cuatre;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentColla.OnFragmentInteractionListener, FragmentPinya.OnFragmentInteractionListener, frament_fragment_pinyes.OnFragmentInteractionListener, FragmentInicio.OnFragmentInteractionListener, pinya_de_cuatre.OnFragmentInteractionListener, pinya_de_cinc.OnFragmentInteractionListener, fragment_pinyes_tresdecinc.OnFragmentInteractionListener, Mostrar_Colla.OnFragmentInteractionListener, EditarPersona.OnFragmentInteractionListener {
 
-    private ArrayList<String> arrayList =new ArrayList();
+    private ArrayList<String> arrayList = new ArrayList();
     private ArrayAdapter<String> arrayAdapter;
     private DatabaseReference databaseReference;
 
-    private Bundle bundle=new Bundle();
-    private  String string;
+    private Bundle bundle = new Bundle();
+    private String string;
     private String nombrePersona;
 
     @Override
@@ -80,7 +73,6 @@ public class MainActivity extends AppCompatActivity
         checkFotos();
 
 
-
     }
 
     private void checkFotos() {
@@ -93,13 +85,13 @@ public class MainActivity extends AppCompatActivity
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 String string = String.valueOf(dataSnapshot.getValue());
-                String[] dataBaseDatos=string.split(";");
-                if (!dataBaseDatos[1].contains(formattedDate)){
+                String[] dataBaseDatos = string.split(";");
+                if (!dataBaseDatos[1].contains(formattedDate)) {
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference();
                     StorageReference desertRef = storageRef.child(nombrePersona.concat("/")).child(string);
 
-                    StorageReference desertRef1= storageRef.child("data").child(string);
+                    StorageReference desertRef1 = storageRef.child("data").child(string);
 
                     desertRef1.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -159,10 +151,9 @@ public class MainActivity extends AppCompatActivity
 
                 string = (String) dataSnapshot.getValue();
 
-                if (user.getEmail().contains(dataSnapshot.getKey())){
-                    nombrePersona=string;
+                if (user.getEmail().contains(dataSnapshot.getKey())) {
+                    nombrePersona = string;
                 }
-
 
 
             }
@@ -172,8 +163,8 @@ public class MainActivity extends AppCompatActivity
 
                 string = (String) dataSnapshot.getValue();
 
-                if (user.getEmail().contains(dataSnapshot.getKey())){
-                    nombrePersona=string;
+                if (user.getEmail().contains(dataSnapshot.getKey())) {
+                    nombrePersona = string;
                 }
 
             }
@@ -183,8 +174,8 @@ public class MainActivity extends AppCompatActivity
 
                 string = (String) dataSnapshot.getValue();
 
-                if (user.getEmail().contains(dataSnapshot.getKey())){
-                    nombrePersona=string;
+                if (user.getEmail().contains(dataSnapshot.getKey())) {
+                    nombrePersona = string;
                 }
 
             }
@@ -194,8 +185,8 @@ public class MainActivity extends AppCompatActivity
 
                 string = (String) dataSnapshot.getValue();
 
-                if (user.getEmail().contains(dataSnapshot.getKey())){
-                    nombrePersona=string;
+                if (user.getEmail().contains(dataSnapshot.getKey())) {
+                    nombrePersona = string;
                 }
 
             }
@@ -230,7 +221,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Toast.makeText(this,"hola",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "hola", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -257,16 +248,16 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             setTitle("Pinyes");
             fragment = new FragmentPinya();
-            bundle.putString("usuario",nombrePersona);
+            bundle.putString("usuario", nombrePersona);
             fragment.setArguments(bundle);
             FragmentoSeleccionado = true;
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             music.stop();
 
-        }else if (id == R.id.nav_visor) {
+        } else if (id == R.id.nav_visor) {
             setTitle("Visor de pinyes");
             fragment = new SelectorDePinyes();
-            bundle.putString("usuario",nombrePersona);
+            bundle.putString("usuario", nombrePersona);
             fragment.setArguments(bundle);
             FragmentoSeleccionado = true;
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

@@ -1,17 +1,13 @@
 package com.ruben.castepinyes;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
 
 
 /**
@@ -72,18 +68,19 @@ public class MostrarFotoPinyaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_mostrar_foto_pinya, container, false);
+        View view = inflater.inflate(R.layout.fragment_mostrar_foto_pinya, container, false);
 
-        imageView=view.findViewById(R.id.fotoPinya);
+        imageView = view.findViewById(R.id.fotoPinya);
 
-        Picasso.get().load(getArguments().getString("Uri")).into(imageView);
+        Bitmap bitmapimage = getArguments().getParcelable("Uri");
 
+        imageView.setImageBitmap(bitmapimage);
 
 
         return view;
 
     }
-    
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

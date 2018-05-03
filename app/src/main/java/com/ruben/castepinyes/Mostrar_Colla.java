@@ -3,7 +3,6 @@ package com.ruben.castepinyes;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -129,7 +128,7 @@ public class Mostrar_Colla extends Fragment {
                 if (borrado) {
 
                 } else {
-                    nombrePersona=nombrePersona+" "+apellidoPersona;
+                    nombrePersona = nombrePersona + " " + apellidoPersona;
                     arrayList.add(nombrePersona);
                     arrayAdapter.notifyDataSetChanged();
                 }

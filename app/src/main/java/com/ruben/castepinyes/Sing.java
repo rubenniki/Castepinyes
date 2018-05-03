@@ -18,12 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -35,11 +30,11 @@ public class Sing extends AppCompatActivity implements View.OnClickListener {
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
-    private ArrayList<String> arrayList =new ArrayList();
+    private ArrayList<String> arrayList = new ArrayList();
     private ArrayAdapter<String> arrayAdapter;
     private DatabaseReference databaseReference;
-    private  String string="";
-    private Bundle bundle=new Bundle();
+    private String string = "";
+    private Bundle bundle = new Bundle();
 
 
     @Override
@@ -117,7 +112,7 @@ public class Sing extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.buttonEntrar:
                 loginUser();
                 break;
