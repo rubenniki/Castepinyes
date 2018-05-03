@@ -107,55 +107,7 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("cuentasDePinyas");
-        //user.getEmail().split("@")[0]
-        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
-        databaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                string = (String) dataSnapshot.getValue();
-
-                args.putString("usuario", string);
-                arrayList.add(string);
-                arrayAdapter.notifyDataSetChanged();
-
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                string = dataSnapshot.getValue().toString();
-
-                arrayList.add(string);
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                string = dataSnapshot.getValue().toString();
-
-                arrayList.add(string);
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                string = dataSnapshot.getValue().toString();
-
-                arrayList.add(string);
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+args.putString("usuario",getArguments().getString("usuario"));
 
         MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 

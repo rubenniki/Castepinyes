@@ -1,12 +1,13 @@
 package com.ruben.castepinyes;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,29 +22,35 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class SelectorDePinyes extends AppCompatActivity implements View.OnClickListener {
+public class SelectorDePinyes extends Fragment implements View.OnClickListener {
 
     private ListView listview;
     private DatabaseReference databaseReference;
     private ArrayAdapter arrayAdapter;
     private ArrayList<String> arrayList = new ArrayList();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selector_de_pinyes);
+    public SelectorDePinyes() {
+        // Required empty public constructor
+    }
 
-        Button back= (Button) findViewById(R.id.back_menu);
-        back.setOnClickListener(this);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.activity_selector_de_pinyes, container, false);
+
 
     // Inflate the layout for this fragmentView
 
 
-        listview = (ListView) findViewById(R.id.collas);
+        listview = (ListView) view.findViewById(R.id.collas);
     databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+    arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
         listview.setAdapter(arrayAdapter);
+
+        //pasarle bundle de colla usuario
+        //poner esta vista en el menu
 
         databaseReference.addChildEventListener(new ChildEventListener() {
         @Override
@@ -53,9 +60,10 @@ public class SelectorDePinyes extends AppCompatActivity implements View.OnClickL
             String[] separated = colla.split("/");
             int ultimo=separated.length-1;
 
-
-               arrayList.add(separated[ultimo]);
+            if(separated[ultimo].contains("Colla")){
+                arrayList.add(separated[ultimo]);
                 arrayAdapter.notifyDataSetChanged();
+            }
 
 
 
@@ -67,9 +75,11 @@ public class SelectorDePinyes extends AppCompatActivity implements View.OnClickL
             String[] separated = colla.split("/");
             int ultimo=separated.length-1;
 
+if(separated[ultimo].contains("colla")){
+    arrayList.add(separated[ultimo]);
+    arrayAdapter.notifyDataSetChanged();
+}
 
-            arrayList.add(separated[ultimo]);
-            arrayAdapter.notifyDataSetChanged();
 
         }
 
@@ -81,8 +91,11 @@ public class SelectorDePinyes extends AppCompatActivity implements View.OnClickL
             int ultimo=separated.length-1;
 
 
-            arrayList.add(separated[ultimo]);
-            arrayAdapter.notifyDataSetChanged();
+            if(separated[ultimo].contains("colla")){
+                arrayList.add(separated[ultimo]);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
 
         }
 
@@ -93,9 +106,11 @@ public class SelectorDePinyes extends AppCompatActivity implements View.OnClickL
             String[] separated = colla.split("/");
             int ultimo=separated.length-1;
 
+            if("colla".contains(separated[ultimo])){
+                arrayList.add(separated[ultimo]);
+                arrayAdapter.notifyDataSetChanged();
+            }
 
-            arrayList.add(separated[ultimo]);
-            arrayAdapter.notifyDataSetChanged();
 
         }
 
@@ -108,7 +123,7 @@ public class SelectorDePinyes extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String nombre = listview.getItemAtPosition(position).toString();
-                Toast.makeText(getApplication(), "Has seleccionadao la colla de "+nombre, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Has seleccionadao la colla de "+nombre, Toast.LENGTH_LONG).show();
 
                 Fragment login = new Fotos_Colla();
                 FragmentManager manager = getFragmentManager();
@@ -121,15 +136,13 @@ public class SelectorDePinyes extends AppCompatActivity implements View.OnClickL
 
 
         });
+        return view;
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.back_menu:
-                Intent SingActivity = new Intent(getApplicationContext(), Sing.class);
-                startActivity(SingActivity);
-                break;
+
         }
     }
 }

@@ -1,12 +1,14 @@
 package com.ruben.castepinyes;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 
 /**
@@ -66,6 +68,10 @@ public class MostrarFotoPinyaFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_mostrar_foto_pinya, container, false);
 
+        ImageView imageview=view.findViewById(R.id.fotoPinya);
+
+        Bitmap bitmapimage = getArguments().getParcelable("foto");
+        imageview.setImageBitmap(bitmapimage);
 
 
         return view;

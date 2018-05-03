@@ -17,12 +17,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import layout.fragment_pinyes_tresdecinc;
 import layout.frament_fragment_pinyes;
@@ -33,6 +49,13 @@ import layout.pinya_de_cuatre;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FragmentColla.OnFragmentInteractionListener, FragmentPinya.OnFragmentInteractionListener, frament_fragment_pinyes.OnFragmentInteractionListener, FragmentInicio.OnFragmentInteractionListener, pinya_de_cuatre.OnFragmentInteractionListener, pinya_de_cinc.OnFragmentInteractionListener, fragment_pinyes_tresdecinc.OnFragmentInteractionListener, Mostrar_Colla.OnFragmentInteractionListener, EditarPersona.OnFragmentInteractionListener {
 
+    private ArrayList<String> arrayList =new ArrayList();
+    private ArrayAdapter<String> arrayAdapter;
+    private DatabaseReference databaseReference;
+
+    private Bundle bundle=new Bundle();
+    private  String string;
+    private String nombrePersona;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +73,130 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        getUserColla();
+
+        checkFotos();
+
+
+
+    }
+
+    private void checkFotos() {
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        final String formattedDate = df.format(c);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("data");
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                String string = String.valueOf(dataSnapshot.child("data").getValue());
+                if (!string.contains(formattedDate)){
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference storageRef = storage.getReference();
+                    StorageReference desertRef = storageRef.child(nombrePersona.concat("/")).child("pinya"+string);
+
+
+                    desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // File deleted successfully
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                String string = String.valueOf(dataSnapshot.child("data").getValue());
+
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                String string = String.valueOf(dataSnapshot.child("data").getValue());
+
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                String string = String.valueOf(dataSnapshot.child("data").getValue());
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getUserColla() {
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("cuentasDePinyas");
+        arrayAdapter = new ArrayAdapter<String>(getApplication(), android.R.layout.simple_list_item_1, arrayList);
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                string = (String) dataSnapshot.getValue();
+
+                if (user.getEmail().contains(dataSnapshot.getKey())){
+                    nombrePersona=string;
+                }
+
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                string = (String) dataSnapshot.getValue();
+
+                if (user.getEmail().contains(dataSnapshot.getKey())){
+                    nombrePersona=string;
+                }
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                string = (String) dataSnapshot.getValue();
+
+                if (user.getEmail().contains(dataSnapshot.getKey())){
+                    nombrePersona=string;
+                }
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                string = (String) dataSnapshot.getValue();
+
+                if (user.getEmail().contains(dataSnapshot.getKey())){
+                    nombrePersona=string;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
@@ -102,6 +249,17 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             setTitle("Pinyes");
             fragment = new FragmentPinya();
+            bundle.putString("usuario",nombrePersona);
+            fragment.setArguments(bundle);
+            FragmentoSeleccionado = true;
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            music.stop();
+
+        }else if (id == R.id.nav_visor) {
+            setTitle("Pinyes");
+            fragment = new SelectorDePinyes();
+            bundle.putString("usuario",nombrePersona);
+            fragment.setArguments(bundle);
             FragmentoSeleccionado = true;
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             music.stop();
