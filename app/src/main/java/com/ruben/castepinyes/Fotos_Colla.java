@@ -52,56 +52,11 @@ public class Fotos_Colla extends Fragment {
 
         fotos = (ListView) view.findViewById(R.id.fotos_listView);
 
+        imagen=getArguments().getParcelableArrayList("fotos");
+
         adapter_foto_listView = new Adapter_foto_listView(imagen, getActivity());
         fotos.setAdapter(adapter_foto_listView);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("data");
-        databaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                String string = String.valueOf(dataSnapshot.getValue());
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference hola = storage.getReference().child(Objects.requireNonNull(getArguments().getString("usuario"))).child(string);
-                hola.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        imagen.add(uri);
-                        adapter_foto_listView.notifyDataSetChanged();
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                String string = String.valueOf(dataSnapshot.child("data").getValue());
-
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                String string = String.valueOf(dataSnapshot.child("data").getValue());
-
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                String string = String.valueOf(dataSnapshot.child("data").getValue());
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         fotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

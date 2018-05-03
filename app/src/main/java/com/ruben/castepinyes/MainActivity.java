@@ -241,6 +241,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_colla) {
             setTitle("Colla");
             fragment = new FragmentColla();
+            bundle.putString("usuario", nombrePersona);
+            fragment.setArguments(bundle);
             FragmentoSeleccionado = true;
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             music.stop();
