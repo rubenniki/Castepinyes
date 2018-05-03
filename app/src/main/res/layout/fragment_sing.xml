@@ -104,14 +104,6 @@
                 android:background="#00ffffff"
                 android:text="@string/Sing_Button_ressetpassword" />
 
-            <Button
-                android:id="@+id/Sing_button_anonimo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/Sing_button_resset"
-                android:background="@drawable/boton_redondo"
-                android:text="@string/visualizar_pinyes_sing" />
-
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 

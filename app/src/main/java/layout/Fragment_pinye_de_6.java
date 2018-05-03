@@ -2,10 +2,11 @@ package layout;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +18,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.ruben.castepinyes.R;
 
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -157,14 +164,35 @@ public class Fragment_pinye_de_6 extends Fragment implements View.OnClickListene
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Opening email to send a error", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent Email = new Intent(Intent.ACTION_SEND);
-                Email.setType("text/email");
-                Email.putExtra(Intent.EXTRA_EMAIL,
-                        new String[]{"Castepinyes@gmail.com"});  //developer 's email
-                Email.putExtra(Intent.EXTRA_TEXT, "Dear Developer Name," + "\n");  //Email 's Greeting text
-                startActivity(Intent.createChooser(Email, "Abre el email"));
+               DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child("data");
+
+
+                Bitmap foto=takeScreenshot();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                foto.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String formattedDate = df.format(c);
+
+                databaseReference2.push().setValue("pinya"+formattedDate);
+
+                StorageReference fotoRef = storage.getReference().child(nombrePersona.concat("/")).child("pinya"+formattedDate);
+                fotoRef.getDownloadUrl();
+                UploadTask uploadTask = fotoRef.putBytes(data);
+uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+    @Override
+    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        Toast.makeText(getContext(),"S'ha guardat la pinya",Toast.LENGTH_LONG).show();
+    }
+});
+               /* Bundle bundle=new Bundle();
+                bundle.putParcelable("foto",foto);
+                Fragment fragment= new MostrarFotoPinyaFragment();
+                fragment.setArguments(bundle);
+                replaceFragment(fragment);*/
             }
         });
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -176,6 +204,27 @@ public class Fragment_pinye_de_6 extends Fragment implements View.OnClickListene
             }
         });
         return view;
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    public Bitmap takeScreenshot() {
+        Bitmap bitmap = null;
+        try {
+            // crear un bitmap con la captura de pantalla
+            View v1 = getActivity().getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 
     @Override
