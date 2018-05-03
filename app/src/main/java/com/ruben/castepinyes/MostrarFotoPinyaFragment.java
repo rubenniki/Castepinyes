@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -28,6 +31,9 @@ public class MostrarFotoPinyaFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ImageView imageView;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,6 +73,11 @@ public class MostrarFotoPinyaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_mostrar_foto_pinya, container, false);
+
+        imageView=view.findViewById(R.id.fotoPinya);
+
+        Picasso.get().load(getArguments().getString("Uri")).into(imageView);
+
 
 
         return view;

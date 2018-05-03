@@ -8,8 +8,8 @@
     <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/fotoPinya"
-        android:layout_width="178dp"
-        android:layout_height="150dp"
-        android:layout_margin="15dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="90"/>
 
 </FrameLayout>
