@@ -174,7 +174,7 @@ public class Fragment_pinye_de_6 extends Fragment implements View.OnClickListene
                 FirebaseStorage storage = FirebaseStorage.getInstance();
 
                 Date c = Calendar.getInstance().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat df = new SimpleDateFormat(";yyyy-MM-dd;HH:mm:ss");
                 String formattedDate = df.format(c);
 
                 databaseReference2.push().setValue("pinya"+formattedDate);

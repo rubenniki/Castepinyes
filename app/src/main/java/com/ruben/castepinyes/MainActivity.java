@@ -85,20 +85,28 @@ public class MainActivity extends AppCompatActivity
 
     private void checkFotos() {
         Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         final String formattedDate = df.format(c);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("data");
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                String string = String.valueOf(dataSnapshot.child("data").getValue());
-                if (!string.contains(formattedDate)){
+                String string = String.valueOf(dataSnapshot.getValue());
+                String[] dataBaseDatos=string.split(";");
+                if (!dataBaseDatos[1].contains(formattedDate)){
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference();
-                    StorageReference desertRef = storageRef.child(nombrePersona.concat("/")).child("pinya"+string);
+                    StorageReference desertRef = storageRef.child(nombrePersona.concat("/")).child(string);
 
+                    StorageReference desertRef1= storageRef.child("data").child(string);
 
+                    desertRef1.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                        }
+                    });
                     desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -256,7 +264,7 @@ public class MainActivity extends AppCompatActivity
             music.stop();
 
         }else if (id == R.id.nav_visor) {
-            setTitle("Pinyes");
+            setTitle("Visor de pinyes");
             fragment = new SelectorDePinyes();
             bundle.putString("usuario",nombrePersona);
             fragment.setArguments(bundle);

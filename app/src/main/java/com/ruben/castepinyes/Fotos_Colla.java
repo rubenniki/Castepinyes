@@ -40,7 +40,7 @@ public class Fotos_Colla extends Fragment {
         StorageReference hola = storage.getReference().child("CollaViladecans").child("ac_a1721.jpg");
         Toast.makeText(getActivity(), (CharSequence) hola.getName(), Toast.LENGTH_SHORT).show();
         adapter_foto_listView=new Adapter_foto_listView(imagen,getActivity());
-
+        fotos.setAdapter(adapter_foto_listView);
 
         return view;
     }

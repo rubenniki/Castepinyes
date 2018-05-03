@@ -50,7 +50,7 @@ public class SelectorDePinyes extends Fragment implements View.OnClickListener {
         listview.setAdapter(arrayAdapter);
 
         //pasarle bundle de colla usuario
-        //poner esta vista en el menu
+        final String nombreColla=getArguments().getString("usuario");
 
         databaseReference.addChildEventListener(new ChildEventListener() {
         @Override
@@ -61,8 +61,11 @@ public class SelectorDePinyes extends Fragment implements View.OnClickListener {
             int ultimo=separated.length-1;
 
             if(separated[ultimo].contains("Colla")){
-                arrayList.add(separated[ultimo]);
-                arrayAdapter.notifyDataSetChanged();
+                if (nombreColla.equalsIgnoreCase(separated[ultimo])){
+                    arrayList.add(separated[ultimo]);
+                    arrayAdapter.notifyDataSetChanged();
+                }
+
             }
 
 
