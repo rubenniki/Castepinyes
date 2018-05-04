@@ -7,6 +7,19 @@
     android:background="@color/blanc">
 
     <!-- TODO: Update blank fragment layout -->
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="126dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="540dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -18,7 +31,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/listview"
-        app:layout_constraintHorizontal_bias="0.585"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -74,9 +87,8 @@
 
         <Button
             android:id="@+id/Agulla_derecha"
-            android:layout_width="@dimen/width_pinya_button"
-            android:layout_height="@dimen/heigth_pinya_button"
-            android:layout_marginStart="0dp"
+            android:layout_width="68dp"
+            android:layout_height="31dp"
             android:layout_marginTop="12dp"
             android:rotation="-55"
             android:text="@string/agulla"
@@ -102,8 +114,8 @@
             android:id="@+id/Crosa_dreta_arriba"
             android:layout_width="48dp"
             android:layout_height="27dp"
-            android:layout_marginBottom="44dp"
-            android:layout_marginStart="244dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="259dp"
             android:rotation="35"
             android:text="@string/crossa"
             android:textAlignment="center"
@@ -115,8 +127,8 @@
             android:id="@+id/Crosa_izquierda_arriba"
             android:layout_width="48dp"
             android:layout_height="27dp"
-            android:layout_marginBottom="44dp"
-            android:layout_marginStart="128dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginStart="118dp"
             android:rotation="-35"
             android:text="@string/crossa"
             android:textAlignment="center"
@@ -124,17 +136,82 @@
             app:layout_constraintBottom_toBottomOf="@+id/Baix_izquierda"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <Button
+            android:id="@+id/Crosa_izquierda_abajo"
+            android:layout_width="48dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="167dp"
+            android:layout_marginTop="2dp"
+            android:rotation="-35"
+            android:text="@string/crossa"
+            android:textAlignment="center"
+            android:textSize="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Baix_izquierda" />
+
+        <Button
+            android:id="@+id/Crosa_dreta_abajo"
+            android:layout_width="48dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="205dp"
+            android:layout_marginTop="33dp"
+            android:rotation="35"
+            android:text="@string/crossa"
+            android:textAlignment="center"
+            android:textSize="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Crosa_dreta_arriba" />
+
+        <Button
+            android:id="@+id/Crosa_arriba_izquierda"
+            android:layout_width="48dp"
+            android:layout_height="27dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:rotation="-90"
+            android:text="@string/crossa"
+            android:textAlignment="center"
+            android:textSize="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Baix_arriba"
+            app:layout_constraintEnd_toEndOf="@+id/Baix_arriba"
+            app:layout_constraintHorizontal_bias="0.761"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/Crosa_arriba_derecha"
+            android:layout_width="48dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="228dp"
+            android:rotation="-90"
+            android:text="@string/crossa"
+            android:textAlignment="center"
+            android:textSize="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/Agulla_arriba"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="126dp"
-        android:layout_height="511dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:foregroundGravity="bottom"
+        android:src="@drawable/ic_action_save"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

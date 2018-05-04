@@ -1,6 +1,7 @@
 package layout;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -23,9 +25,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.ruben.castepinyes.R;
 
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -123,66 +132,85 @@ public class pinya_de_cuatre extends Fragment implements View.OnClickListener {
         crossaDaltDreta.setOnClickListener(this);
         crossaBaixDreta.setOnClickListener(this);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user.getEmail().equals("rubenniki@gmail.com")) {
-
-            colla = "Collaviladecans";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Personas Colla");
-        } else {
-            colla = "Personas Colla";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
-        }
         // Inflate the layout for this fragmentView
-        FloatingActionButton fab = view.findViewById(R.id.genteColla);
+        FloatingActionButton fab = view.findViewById(R.id.floatGuardar);
 
 
         listview = (ListView) view.findViewById(R.id.listview);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(colla).child("Personas Colla");
+        nombrePersona=getArguments().getString("usuario");
 
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(nombrePersona).child("Personas Colla");
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
         listview.setAdapter(arrayAdapter);
-
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                String string = String.valueOf(dataSnapshot.child("nombre").getValue());
 
-                arrayList.add(nombrePersona);
+                arrayList.add(string);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                String string = String.valueOf(dataSnapshot.child("nombre").getValue());
 
-                arrayList.add(nombrePersona);
+                arrayList.add(string);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                String string = String.valueOf(dataSnapshot.child("nombre").getValue());
 
-                arrayList.add(nombrePersona);
+                arrayList.add(string);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                nombrePersona = String.valueOf(dataSnapshot.child("nombre").getValue());
+                String string = String.valueOf(dataSnapshot.child("nombre").getValue());
 
-                arrayList.add(nombrePersona);
+                arrayList.add(string);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child("data");
+
+
+                Bitmap foto=takeScreenshot();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                foto.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                byte[] data = baos.toByteArray();
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat(";yyyy-MM-dd;HH:mm:ss");
+                String formattedDate = df.format(c);
+
+                databaseReference2.push().setValue("pinya"+formattedDate);
+
+                StorageReference fotoRef = storage.getReference().child(nombrePersona.concat("/")).child("pinya"+formattedDate);
+                fotoRef.getDownloadUrl();
+                UploadTask uploadTask = fotoRef.putBytes(data);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(getContext(),"S'ha guardat la pinya",Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -194,6 +222,21 @@ public class pinya_de_cuatre extends Fragment implements View.OnClickListener {
             }
         });
         return view;
+    }
+    public Bitmap takeScreenshot() {
+        Bitmap bitmap = null;
+        try {
+            // crear un bitmap con la captura de pantalla
+            View v1 = getActivity().getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 
     @Override

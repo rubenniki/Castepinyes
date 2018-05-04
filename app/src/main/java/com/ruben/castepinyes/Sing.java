@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.ArrayList;
 
 
 public class Sing extends AppCompatActivity implements View.OnClickListener {
@@ -25,6 +29,12 @@ public class Sing extends AppCompatActivity implements View.OnClickListener {
     private String user, pass;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+
+    private ArrayList<String> arrayList = new ArrayList();
+    private ArrayAdapter<String> arrayAdapter;
+    private DatabaseReference databaseReference;
+    private String string = "";
+    private Bundle bundle = new Bundle();
 
 
     @Override
@@ -102,13 +112,16 @@ public class Sing extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        if (v == butonIn) {
-            loginUser();
-
-        } else if (v == butonReset) {
-            ressetPass();
+        switch (v.getId()) {
+            case R.id.buttonEntrar:
+                loginUser();
+                break;
+            case R.id.Sing_button_resset:
+                ressetPass();
+                break;
         }
+
+
     }
 
 

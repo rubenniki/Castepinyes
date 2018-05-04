@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +44,7 @@ public class EditarPersona extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     Bundle bundle = new Bundle();
     final String nombre = bundle.getString("NOMBRE");
+    EditText etnombre, etApellido;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -52,12 +52,9 @@ public class EditarPersona extends Fragment {
     private OnFragmentInteractionListener mListener;
     private DatabaseReference databaseReference;
     private ListView listview;
-    private String colla, nombrePersona, apellidoPersona,key;
+    private String colla, nombrePersona, apellidoPersona, key;
     private ArrayList<String> arrayList = new ArrayList();
     private ArrayAdapter<String> arrayAdapter;
-
-    EditText etnombre,etApellido;
-
     private AdView mAdView;
 
     public EditarPersona() {
@@ -120,7 +117,7 @@ public class EditarPersona extends Fragment {
             databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
         }
         // Inflate the layout for this fragmentView
-        FloatingActionButton fab = view.findViewById(R.id.genteColla);
+        FloatingActionButton fab = view.findViewById(R.id.floatGuardar);
 
 
         listview = (ListView) view.findViewById(R.id.listview
@@ -144,7 +141,7 @@ public class EditarPersona extends Fragment {
                     etnombre.setText(nombrePersona);
                     etApellido.setText(apellidoPersona);
 
-                }else{
+                } else {
                     arrayList.add(nombrePersona);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -184,16 +181,16 @@ public class EditarPersona extends Fragment {
 
             }
         });
-        Button editar=view.findViewById(R.id.editEditar);
+        Button editar = view.findViewById(R.id.editEditar);
 
         //edit implementacion
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                apellidoPersona= String.valueOf(etApellido.getText());
-                nombrePersona=String.valueOf(etnombre.getText());
-                Toast.makeText(getActivity(),nombrePersona,Toast.LENGTH_LONG).show();
-                PersonaCollaInformation persona = new PersonaCollaInformation(nombrePersona,apellidoPersona);
+                apellidoPersona = String.valueOf(etApellido.getText());
+                nombrePersona = String.valueOf(etnombre.getText());
+                Toast.makeText(getActivity(), nombrePersona, Toast.LENGTH_LONG).show();
+                PersonaCollaInformation persona = new PersonaCollaInformation(nombrePersona, apellidoPersona);
                 databaseReference.child(key).setValue(persona);
             }
         });

@@ -3,6 +3,7 @@ package layout;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,10 +14,14 @@ import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -24,9 +29,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.ruben.castepinyes.R;
 
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,39 +63,9 @@ public class frament_fragment_pinyes extends Fragment implements View.OnClickLis
     private OnFragmentInteractionListener mListener;
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
-    View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            ClipData data = ClipData.newPlainText("", "");
-            View.DragShadowBuilder dragshadow = new View.DragShadowBuilder(v);
-            v.startDrag(data, dragshadow, v, 0);
-            return false;
-        }
-    };
-    View.OnDragListener dragListener = new View.OnDragListener() {
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            int dragEvent = event.getAction();
-            final View view = (View) event.getLocalState();
-            switch (dragEvent) {
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    break;
-                case DragEvent.ACTION_DROP:
-                    if (view.getId() == R.id.hola && v.getId() == R.id.Baix_esquerra) {
-                        button.setText(hola.getText());
-                        hola.setText("");
-                    }
-                    if (view.getId() == R.id.hola && v.getId() == R.id.Baix_dreta) {
-                        button2.setText(hola.getText());
-                        hola.setText("");
-                    }
-                    break;
-            }
-            return true;
-        }
-    };
+    private String nombre="",nombrePersona;
+
+    private Button Agulla_izquierda,Baix_izquierda,Agulla_derecha,Baix_derecha,Crosa_dreta_arriba,Crosa_izquierda_arriba,Crosa_izquierda_abajo,Vent_abajo,Vent_arriba,Crosa_dreta_abajo;
 
 
     public frament_fragment_pinyes() {
@@ -123,23 +105,38 @@ public class frament_fragment_pinyes extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user.getEmail().equals("rubenniki@gmail.com")) {
 
-            colla = "Collaviladecans";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Personas Colla");
-        } else {
-            colla = "Personas Colla";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
-        }
         // Inflate the layout for this fragmentView
         View view = inflater.inflate(R.layout.fragment_frament__pinyes_dosdecinc, container, false);
-        FloatingActionButton fab = view.findViewById(R.id.genteColla);
+        FloatingActionButton fab = view.findViewById(R.id.floatGuardar);
+        Agulla_izquierda=view.findViewById(R.id.Agulla_izquierda);
+        Baix_izquierda=view.findViewById(R.id.Baix_izquierda);
+        Agulla_derecha=view.findViewById(R.id.Agulla_derecha);
+        Baix_derecha=view.findViewById(R.id.Baix_derecha);
+        Crosa_dreta_arriba=view.findViewById(R.id.Crosa_dreta_arriba);
+        Crosa_izquierda_arriba=view.findViewById(R.id.Crosa_izquierda_arriba);
+        Crosa_izquierda_abajo=view.findViewById(R.id.Crosa_izquierda_abajo);
+        Vent_abajo=view.findViewById(R.id.Vent_abajo);
+        Vent_arriba=view.findViewById(R.id.Vent_arriba);
+        Crosa_dreta_abajo=view.findViewById(R.id.Crosa_dreta_abajo);
+
+        Agulla_derecha.setOnClickListener(this);
+        Agulla_izquierda.setOnClickListener(this);
+        Baix_izquierda.setOnClickListener(this);
+        Baix_derecha.setOnClickListener(this);
+        Crosa_dreta_abajo.setOnClickListener(this);
+        Crosa_dreta_arriba.setOnClickListener(this);
+        Crosa_izquierda_abajo.setOnClickListener(this);
+        Crosa_izquierda_arriba.setOnClickListener(this);
+        Vent_abajo.setOnClickListener(this);
+        Vent_arriba.setOnClickListener(this);
+
 
 
         listview = (ListView) view.findViewById(R.id.listview);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(colla).child("Personas Colla");
+        nombrePersona=getArguments().getString("usuario");
 
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(nombrePersona).child("Personas Colla");
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
         listview.setAdapter(arrayAdapter);
         databaseReference.addChildEventListener(new ChildEventListener() {
@@ -184,29 +181,60 @@ public class frament_fragment_pinyes extends Fragment implements View.OnClickLis
 
             }
         });
-
-
-        hola = (TextView) view.findViewById(R.id.hola);
-        button = (TextView) view.findViewById(R.id.Baix_esquerra);
-        button2 = (TextView) view.findViewById(R.id.Baix_dreta);
-
-        hola.setOnLongClickListener(longClickListener);
-        button.setOnDragListener(dragListener);
-        button2.setOnDragListener(dragListener);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Opening email to send a error", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent Email = new Intent(Intent.ACTION_SEND);
-                Email.setType("text/email");
-                Email.putExtra(Intent.EXTRA_EMAIL,
-                        new String[]{"Castepinyes@gmail.com"});  //developer 's email
-                Email.putExtra(Intent.EXTRA_TEXT, "Dear Developer Name," + "\n");  //Email 's Greeting text
-                startActivity(Intent.createChooser(Email, "Abre el email"));
+                DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child("data");
+
+
+                Bitmap foto=takeScreenshot();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                foto.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat(";yyyy-MM-dd;HH:mm:ss");
+                String formattedDate = df.format(c);
+
+                databaseReference2.push().setValue("pinya"+formattedDate);
+
+                StorageReference fotoRef = storage.getReference().child(nombrePersona.concat("/")).child("pinya"+formattedDate);
+                fotoRef.getDownloadUrl();
+                UploadTask uploadTask = fotoRef.putBytes(data);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(getContext(),"S'ha guardat la pinya",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                nombre = (String) ((TextView) view).getText();
+                Log.d("hola", nombre);
             }
         });
         return view;
+    }
+
+    public Bitmap takeScreenshot() {
+        Bitmap bitmap = null;
+        try {
+            // crear un bitmap con la captura de pantalla
+            View v1 = getActivity().getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -235,7 +263,87 @@ public class frament_fragment_pinyes extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.Agulla_derecha:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Agulla_derecha.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Agulla_izquierda:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Agulla_izquierda.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Baix_izquierda:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Baix_izquierda.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Baix_derecha:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Baix_derecha.setText(nombre);
+                    nombre="";
+                }
+                break;
+            case R.id.Crosa_dreta_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_dreta_abajo.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Crosa_dreta_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_dreta_arriba.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Crosa_izquierda_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_izquierda_abajo.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
 
+                break;
+            case R.id.Crosa_izquierda_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Crosa_izquierda_arriba.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Vent_abajo:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Vent_abajo.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.Vent_arriba:
+                if (!nombre.equalsIgnoreCase("")) {
+                    Vent_arriba.setText(nombre);
+                    nombre="";
+                }else{
+                    Toast.makeText(getActivity(),"Selecciona un nombre de la lista",Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
 
     /**

@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static android.content.ContentValues.TAG;
 
@@ -49,6 +50,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM2 = "param2";
     private Button btnConsultar, btnGuardar, btnEditar, btnEliminar;
     private EditText etNombre, etApellido1, etTelefono;
+    private boolean eliminar;
     private ProgressDialog progressDialog;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -104,15 +106,6 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user.getEmail().equals("rubenniki@gmail.com")) {
-
-            colla = "Collaviladecans";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Personas Colla");
-        } else {
-            colla = "Personas Colla";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
-        }
-
 
         progressDialog = new ProgressDialog(getActivity());
 
@@ -130,7 +123,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
         btnEliminar = v.findViewById(R.id.btnEliminar);
 
         btnEliminar.setOnClickListener(this);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(colla).child("Personas Colla");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child((String) Objects.requireNonNull(getArguments().get("usuario"))).child("Personas Colla");
 
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
 
@@ -267,7 +260,6 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
         String nombre = etNombre.getText().toString().trim();
         String apellido1 = etApellido1.getText().toString().trim();
         String telefono = etTelefono.getText().toString().trim();
-        bundle.putString("COLLA", colla);
         if (TextUtils.isEmpty(nombre) && TextUtils.isEmpty(apellido1) && TextUtils.isEmpty(telefono) && !bundle.getBoolean("DELETE")) {
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("server/saving-data/fireblog/posts");
@@ -279,7 +271,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                     // whenever data at this location is updated.
                     String value = dataSnapshot.getValue(String.class);
                     Log.d(TAG, "Value is: " + value);
-                    bundle.putBoolean("DELETE", false);
+
 
                     Fragment fragment = new Mostrar_Colla();
                     fragment.setArguments(bundle);
@@ -304,7 +296,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
             return;
 
         } else if (TextUtils.isEmpty(telefono)) {
-            final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Editant Persona ...", true);
+            final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Eliminant Persona ...", true);
             ringProgressDialog.setCancelable(true);
             new Thread(new Runnable() {
                 @Override
@@ -325,7 +317,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
             fragment.setArguments(bundle);
             replaceFragment(fragment);
         } else {
-            final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Guardant Persona ...", true);
+            final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Eliminant Persona ...", true);
             ringProgressDialog.setCancelable(true);
             new Thread(new Runnable() {
                 @Override
@@ -370,6 +362,7 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btnEliminar:
                 bundle.putBoolean("DELETE", true);
+                eliminar = true;
                 mostrarGente();
 
                 break;
@@ -425,27 +418,45 @@ public class FragmentColla extends Fragment implements View.OnClickListener {
                     Fragment fragment = new EditarPersona();
                     fragment.setArguments(bundle);
                     replaceFragment(fragment);
-                    estaPersona=true;
+                    estaPersona = true;
                 }
             }
-            if(!estaPersona){
+            if (!estaPersona) {
+
                 Toast.makeText(getActivity(), "Esta persona no esta en la base de datos por lo tanto no lo puedes editar", Toast.LENGTH_LONG).show();
             }
 
         } else {
-            final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Guardant Persona ...", true);
-            ringProgressDialog.setCancelable(true);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        //temmps per fer la tasca
-                        Thread.sleep(2000);
-                    } catch (Exception e) {
+            if (eliminar == false) {
+                final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Editant Persona ...", true);
+                ringProgressDialog.setCancelable(true);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //temmps per fer la tasca
+                            Thread.sleep(2000);
+                        } catch (Exception e) {
+                        }
+                        ringProgressDialog.dismiss();
                     }
-                    ringProgressDialog.dismiss();
-                }
-            }).start();
+                }).start();
+            } else {
+                final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Espera un moment ", "Editant Persona ...", true);
+                ringProgressDialog.setCancelable(true);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //temmps per fer la tasca
+                            Thread.sleep(2000);
+                        } catch (Exception e) {
+                        }
+                        ringProgressDialog.dismiss();
+                    }
+                }).start();
+            }
+
 
             bundle.putString("NOMBRE", nombre);
             bundle.putString("APELLIDO", apellido1);

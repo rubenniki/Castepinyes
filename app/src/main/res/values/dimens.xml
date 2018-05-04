@@ -15,4 +15,5 @@
     <dimen name="heigth_pinya_button">32dp</dimen>
     <dimen name="width_pinya_button">68dp</dimen>
     <dimen name="size_buton_pinya">10sp</dimen>
+    <dimen name="boton_redondo_blanco">35px</dimen>
 </resources>

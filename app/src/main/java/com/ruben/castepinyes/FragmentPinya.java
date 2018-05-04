@@ -9,14 +9,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
+
+import layout.Fragment_pinye_de_6;
 import layout.fragment_pinyes_tresdecinc;
 import layout.frament_fragment_pinyes;
 import layout.pinya_de_cinc;
@@ -36,12 +40,18 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Button dosdecinc, pinyaTres, pinyaQuatro, pinyaCinco;
+    Button dosdecinc, pinyaTres, pinyaQuatro, pinyaCinco, pinyaSeis;
 
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ArrayList<String> arrayList = new ArrayList();
+    private ArrayAdapter<String> arrayAdapter;
+    private DatabaseReference databaseReference;
+    private String string;
+    private Bundle args = new Bundle();
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,16 +89,17 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
         }
 
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pinyes, container, false);
-        if(R.id.fragmentPinyes==view.getId()) {
+        if (R.id.fragmentPinyes == view.getId()) {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+
+        args.putString("usuario", getArguments().getString("usuario"));
 
         MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 
@@ -104,6 +115,8 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
         pinyaQuatro.setOnClickListener(this);
         pinyaCinco = (Button) view.findViewById(R.id.pinyaCinc);
         pinyaCinco.setOnClickListener(this);
+        pinyaSeis = (Button) view.findViewById(R.id.pinyaSeis);
+        pinyaSeis.setOnClickListener(this);
 
         return view;
     }
@@ -115,27 +128,35 @@ public class FragmentPinya extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case (R.id.dosdecinc):
                 fragment = new frament_fragment_pinyes();
+                fragment.setArguments(args);
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
             case R.id.pinyaTres:
 
                 fragment = new fragment_pinyes_tresdecinc();
+                fragment.setArguments(args);
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
                 break;
             case R.id.pinyaQuatre:
                 fragment = new pinya_de_cuatre();
+                fragment.setArguments(args);
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
             case R.id.pinyaCinc:
                 fragment = new pinya_de_cinc();
+                fragment.setArguments(args);
                 replaceFragment(fragment);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
-            case 6:
+            case R.id.pinyaSeis:
+                fragment = new Fragment_pinye_de_6();
+                fragment.setArguments(args);
+                replaceFragment(fragment);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
 
         }

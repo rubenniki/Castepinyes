@@ -28,7 +28,6 @@
     <string name="boton_editar">Editar</string>
     <string name="crossa">Crossa</string>
     <string name="agulla">Agulla</string>
-    <string name="visualizar_pinyes_sing">Visualizar pinyes de una colla</string>
-
-
+    <string name="visualizar_pinyes_sing">Visualizar pinyes</string>
+    <string name="vent">vent</string>
 </resources>

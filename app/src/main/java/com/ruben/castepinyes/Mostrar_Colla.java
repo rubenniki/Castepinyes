@@ -3,7 +3,6 @@ package com.ruben.castepinyes;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -46,7 +46,7 @@ public class Mostrar_Colla extends Fragment {
     private OnFragmentInteractionListener mListener;
     private DatabaseReference databaseReference;
     private ListView listview;
-    private String colla, nombrePersona, apellidoPersona;
+    private String nombrePersona, apellidoPersona;
     private ArrayList<String> arrayList = new ArrayList();
     private ArrayAdapter<String> arrayAdapter;
     private AdView mAdView;
@@ -95,20 +95,11 @@ public class Mostrar_Colla extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        if (user.getEmail().equals("rubenniki@gmail.com")) {
-
-            colla = "Collaviladecans";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Personas Colla");
-        } else {
-            colla = "Personas Colla";
-            databaseReference = FirebaseDatabase.getInstance().getReference(colla).child("Mal");
-        }
         // Inflate the layout for this fragmentView
-        FloatingActionButton fab = view.findViewById(R.id.genteColla);
 
 
         listview = (ListView) view.findViewById(R.id.listview);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(colla).child("Personas Colla");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child((String) Objects.requireNonNull(getArguments().get("usuario"))).child("Personas Colla");
 
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
         listview.setAdapter(arrayAdapter);
@@ -130,7 +121,7 @@ public class Mostrar_Colla extends Fragment {
                 if (borrado) {
 
                 } else {
-                    nombrePersona=nombrePersona+" "+apellidoPersona;
+                    nombrePersona = nombrePersona + " " + apellidoPersona;
                     arrayList.add(nombrePersona);
                     arrayAdapter.notifyDataSetChanged();
                 }

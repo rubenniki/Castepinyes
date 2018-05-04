@@ -23,7 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:hint="@string/nombre" />
+        android:hint="@string/nombre"
+        android:inputType="textPersonName"
+        android:maxLength="20"/>
 
     <EditText
         android:id="@+id/etApellido1"
@@ -32,7 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:hint="@string/_1er_apellido" />
+        android:hint="@string/_1er_apellido"
+        android:inputType="textPersonName"
+        android:maxLength="20"
+        />
 
     <EditText
         android:id="@+id/etTelefono"
@@ -40,7 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:hint="@string/telefono" />
+        android:hint="@string/telefono"
+        android:inputType="number"
+        android:maxLength="9"/>
 
     <Button
         android:id="@+id/btnGuardar"
